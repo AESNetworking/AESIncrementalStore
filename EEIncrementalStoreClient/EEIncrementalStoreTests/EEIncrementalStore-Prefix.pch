@@ -1,0 +1,32 @@
+//
+//  EEIncrementalStoreTest-Prefix.pch
+//  CheckList
+//
+//  Created by roberto avanzi on 27/01/14.
+//  Copyright (c) 2014 Esselunga. All rights reserved.
+//
+
+#ifndef EEIncrementalStoreTest_Prefix_pch
+#define EEIncrementalStoreTest_Prefix_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+#import "NSManagedObject+AESIncrementalStore.h"
+
+// by ingconti
+#ifdef DEBUG
+
+#define DEBUG_LOG(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+
+#else
+#define DEBUG_LOG(...)
+#endif
+#endif
+
+#endif
