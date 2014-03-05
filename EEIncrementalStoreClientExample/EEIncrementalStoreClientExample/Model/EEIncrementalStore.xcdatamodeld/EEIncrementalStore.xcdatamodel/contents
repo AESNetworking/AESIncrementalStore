@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B42" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="BusinessSmartphone" representedClassName="BusinessSmartphone" syncable="YES">
+        <attribute name="businesssmartphone_id" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="identifier" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="dataAcquisto" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="modello" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tipo" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="employee" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Employee" syncable="YES">
+            <userInfo>
+                <entry key="ignore" value="NO"/>
+            </userInfo>
+        </relationship>
+        <userInfo>
+            <entry key="primaryKey" value="businesssmartphone_id"/>
+        </userInfo>
+    </entity>
+    <entity name="BusinessTablet" representedClassName="BusinessTablet" syncable="YES">
+        <attribute name="businesstablet_id" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="identifier" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="dataAcquisto" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="modello" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tipo" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="employee" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Employee" syncable="YES">
+            <userInfo>
+                <entry key="ignore" value="NO"/>
+            </userInfo>
+        </relationship>
+        <userInfo>
+            <entry key="primaryKey" value="businesstablet_id"/>
+        </userInfo>
+    </entity>
+    <entity name="Department" representedClassName="Department" syncable="YES">
+        <attribute name="codiceIdentificativo" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="department_id" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="identifier" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="nome" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="employees" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="Employee" syncable="YES">
+            <userInfo>
+                <entry key="eager" value="YES"/>
+                <entry key="ignore" value="NO"/>
+            </userInfo>
+        </relationship>
+        <userInfo>
+            <entry key="primaryKey" value="department_id"/>
+        </userInfo>
+    </entity>
+    <entity name="Employee" representedClassName="Employee" syncable="YES">
+        <attribute name="cognome" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dataAssunzione" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="dipendente" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="employee_id" optional="YES" attributeType="String" syncable="YES">
+            <userInfo>
+                <entry key="identifier" value="YES"/>
+            </userInfo>
+        </attribute>
+        <attribute name="livello" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="nome" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="departments" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="Department" syncable="YES">
+            <userInfo>
+                <entry key="ignore" value="NO"/>
+            </userInfo>
+        </relationship>
+        <relationship name="smartphones" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="BusinessSmartphone" syncable="YES">
+            <userInfo>
+                <entry key="ignore" value="NO"/>
+            </userInfo>
+        </relationship>
+        <relationship name="tablets" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="BusinessTablet" syncable="YES">
+            <userInfo>
+                <entry key="ignore" value="NO"/>
+            </userInfo>
+        </relationship>
+        <userInfo>
+            <entry key="primaryKey" value="employee_id"/>
+        </userInfo>
+    </entity>
+    <fetchRequest name="AllDepartment" entity="Department"/>
+    <elements>
+        <element name="BusinessSmartphone" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="BusinessTablet" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Department" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Employee" positionX="0" positionY="0" width="0" height="0"/>
+    </elements>
+</model>
