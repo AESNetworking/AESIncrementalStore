@@ -261,7 +261,7 @@ static char kAlignedAttributeObjectKey;
     if (!_backingManagedObjectContext) {
         _backingManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
         _backingManagedObjectContext.persistentStoreCoordinator = _backingPersistentStoreCoordinator;
-        [_backingManagedObjectContext setMergePolicy:NSErrorMergePolicy];
+        [_backingManagedObjectContext setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
         _backingManagedObjectContext.retainsRegisteredObjects = YES;
     }
     
