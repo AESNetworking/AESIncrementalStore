@@ -792,30 +792,38 @@ static NSString * TTTISO8601TimestampFromDate(NSDate *date) {
     NSArray * deletedObjects=notification.object;
     NSManagedObjectContext * context=[notification.userInfo objectForKey:@"context"];
     NSManagedObjectContext *backingContext = [self backingManagedObjectContext];
-    NSString * entityName=nil, * deletedKey;
-    NSManagedObjectID * objectID;
-    NSEntityDescription * entityDesc;
-    for (NSDictionary * dictDeletedObject in deletedObjects) {
-        entityName=[dictDeletedObject objectForKey:@"entityName"];
-        deletedKey=[dictDeletedObject objectForKey:@"deletedKey"];
-        entityDesc=[NSEntityDescription entityForName:entityName inManagedObjectContext:context];
-        objectID=[self objectIDForEntity:entityDesc withResourceIdentifier:deletedKey];
-        if (objectID) {
-            NSManagedObject *backingObject = [backingContext existingObjectWithID:objectID error:nil];
-            if (backingObject) {
-                [backingContext performBlockAndWait:^{
-                    [backingContext deleteObject:backingObject];
-                    [backingContext save:nil];
-                }];
+    [backingContext performBlock:^{
+        NSError * __autoreleasing * error=nil;
+        NSString * entityName=nil, * deletedKey;
+        NSManagedObjectID * objectID;
+        NSEntityDescription * entityDesc;
+        NSMutableArray * objectIDs=[NSMutableArray array];
+        for (NSDictionary * dictDeletedObject in deletedObjects) {
+            entityName=[dictDeletedObject objectForKey:@"entityName"];
+            deletedKey=[dictDeletedObject objectForKey:@"deletedKey"];
+            entityDesc=[NSEntityDescription entityForName:entityName inManagedObjectContext:context];
+            if  (entityDesc != nil) {
+                objectID=[self objectIDForBackingObjectForEntity:entityDesc withPrimaryKey:deletedKey];
+                if (objectID) {
+                    NSManagedObject *backingObject = [backingContext existingObjectWithID:objectID error:nil];
+                    if (backingObject) {
+                        [backingContext deleteObject:backingObject];
+                        [objectIDs addObject:objectID];
+                    }
+                }
             }
-            [context performBlockAndWait:^{
+        }
+        AFSaveManagedObjectContextOrThrowInternalConsistencyException(backingContext, error);
+        [context performBlock:^{
+            NSManagedObjectID * objectID=nil;
+            for (objectID in objectIDs) {
                 NSManagedObject * object=[context objectRegisteredForID:objectID];
                 if (object) {
                     [context deleteObject:object];
                 }
-            }];
-        }
-    }
+            }
+        }];
+    }];
 }
 
 -(NSDictionary *)retrieveObjectWithIdentifier:(NSString *)primaryKey

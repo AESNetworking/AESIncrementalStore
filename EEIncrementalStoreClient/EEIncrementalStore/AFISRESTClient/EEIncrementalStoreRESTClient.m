@@ -292,9 +292,10 @@
         NSSet * updatedObjects=[NSSet setWithSet:self.updatedObjects];
         NSSet * deletedObjects=[NSSet setWithSet:self.deletedObjects];
         NSString * baseURL=[[ESLPreferenceManager sharedInstance] serverURL];
-
+        NSManagedObjectContext * mObjectContext=[[ESLPersistenceManager sharedInstance] managedObjectContext];
+        
         NSMutableURLRequest * urlRequest=[self requestWithMethod:@"POST" path:baseURL
-                                                                   parameters:localJSONRequest];
+                                                      parameters:localJSONRequest];
         AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:urlRequest success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSHTTPURLResponse * response=operation.response;
             NSUInteger responseCode=[response statusCode];
@@ -302,23 +303,30 @@
             if  ([responseObject isKindOfClass:[NSArray class]] &&
                  (responseCode==200)) {
                 NSSaveChangesRequest *saveChangesRequest = [[NSSaveChangesRequest alloc] initWithInsertedObjects:insertedObjects
-                                                                                              updatedObjects:updatedObjects
-                                                                                              deletedObjects:deletedObjects
-                                                                                              lockedObjects:nil];
-                NSManagedObjectContext * mObjectContext=[[ESLPersistenceManager sharedInstance] managedObjectContext];
+                                                                                                  updatedObjects:updatedObjects
+                                                                                                  deletedObjects:deletedObjects
+                                                                                                   lockedObjects:nil];
                 NSDictionary * dict=[NSDictionary dictionaryWithObjectsAndKeys:saveChangesRequest, @"saveChangeRequest",
-                                                                            responseObject, @"responseObject",
-                                                                            mObjectContext, @"context",
-                                                                            operation,@"operation",
-                                                                            nil];
+                                     responseObject, @"responseObject",
+                                     mObjectContext, @"context",
+                                     operation,@"operation",
+                                     nil];
                 [[NSNotificationCenter defaultCenter]
-                                   postNotification:[NSNotification notificationWithName:AFIncrementalStoreSaveChangePostPoneRequestKey
-                                                                                    object:dict]];
+                 postNotification:[NSNotification notificationWithName:AFIncrementalStoreSaveChangePostPoneRequestKey
+                                                                object:dict]];
                 //NSLog(@"Server committato with response code = %d\n", responseCode);
             }
         } failure:^(AFHTTPRequestOperation *request, NSError *error) {
-            self.jsonRequest=nil;
+            [self.jsonRequest removeAllObjects];
             NSLog(@"Commit fallita, Request Failed with Error: %@, %@", error, error.userInfo);
+            NSString *notificationName = AFIncrementalStoreContextDidSaveRemoteValues;
+            
+            NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+            if (error) {
+                [userInfo setObject:error forKey:AFIncrementalStoreFetchSaveRequestErrorKey];
+            }
+            [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:mObjectContext userInfo:userInfo];
+            
         }];
         operation.successCallbackQueue=self->_successRequestQueue;
         operation.failureCallbackQueue=self->_failureRequestQueue;
@@ -484,12 +492,28 @@
 
 }
 
+static NSString * TTTISO8601TimestampFromDate(NSDate *date) {
+    static NSDateFormatter *_iso8601DateFormatter = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _iso8601DateFormatter = [[NSDateFormatter alloc] init];
+        [_iso8601DateFormatter setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss z"];
+        [_iso8601DateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
+        [_iso8601DateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT"]];
+        
+    });
+    
+    return [_iso8601DateFormatter stringFromDate:date];
+}
+
 - (void) executeDeletedService: (NSNotification* )note {
     NSLog(@"****************************************************** IncrementaleStore sincronizzato, chiamo deleted");
     NSString * baseURL=[[ESLPreferenceManager sharedInstance] serverURL];
     NSURL * urlService=[[[NSURL alloc] initWithString:baseURL] URLByAppendingPathComponent:@"deletedentities"];
     NSManagedObjectContext * context=[note.userInfo objectForKey:@"context"];
     NSMutableURLRequest * request=[self requestWithMethod:@"GET" path:[urlService absoluteString] parameters:nil];
+#warning FIXME, per adesso mandiamo tutto
+    [request setValue:TTTISO8601TimestampFromDate([NSDate distantPast]) forHTTPHeaderField:@"If-Modified-Since"];
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSHTTPURLResponse * response=operation.response;
         NSUInteger responseCode=[response statusCode];
