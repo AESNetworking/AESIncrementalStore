@@ -17,7 +17,7 @@
 #import "ChecklistDTO+distance.h"
 #import "DashboardDTO.h"
 #import "ESLPersistenceManager.h"
-#import "NSManagedObject+AESIncrementalStore.h"
+#import "NSManagedObject+EEIncrementalStore.h"
 #import "ChecklistDTO_stati.h"
 #import "MansioneDTO.h"
 #import "ESSLSearchTableDataSource.h"

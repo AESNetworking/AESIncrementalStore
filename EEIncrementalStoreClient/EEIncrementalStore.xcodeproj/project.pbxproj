@@ -49,6 +49,14 @@
 		E1E30A31184C946E007004B6 /* ESLPersistenceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E30A2D184C946E007004B6 /* ESLPersistenceManager.m */; };
 		E1E30A32184C946E007004B6 /* NSManagedObject+DataMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E30A2F184C946E007004B6 /* NSManagedObject+DataMapper.m */; };
 		E1E30A33184C946E007004B6 /* NSManagedObject+DataMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E30A2F184C946E007004B6 /* NSManagedObject+DataMapper.m */; };
+		E1F509ED1908F53A00B523F4 /* ESLNetworkAvailability.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F509EA1908F53A00B523F4 /* ESLNetworkAvailability.m */; };
+		E1F509EE1908F53A00B523F4 /* ESLNetworkAvailability.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F509EA1908F53A00B523F4 /* ESLNetworkAvailability.m */; };
+		E1F509EF1908F53A00B523F4 /* ESLNetworkOperationQueueObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F509EC1908F53A00B523F4 /* ESLNetworkOperationQueueObserver.m */; };
+		E1F509F01908F53A00B523F4 /* ESLNetworkOperationQueueObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F509EC1908F53A00B523F4 /* ESLNetworkOperationQueueObserver.m */; };
+		E1F509F31908F61700B523F4 /* NSManagedObjectContext+saveContext.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F509F21908F61700B523F4 /* NSManagedObjectContext+saveContext.m */; };
+		E1F509F41908F61700B523F4 /* NSManagedObjectContext+saveContext.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F509F21908F61700B523F4 /* NSManagedObjectContext+saveContext.m */; };
+		E1F509F71908F91E00B523F4 /* ESLLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F509F61908F91E00B523F4 /* ESLLoadingView.m */; };
+		E1F509F81908F91E00B523F4 /* ESLLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F509F61908F91E00B523F4 /* ESLLoadingView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,7 +96,7 @@
 		E1A5FCC0177991D600455FC6 /* ESLAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ESLAppDelegate.m; sourceTree = "<group>"; };
 		E1A5FCD0177991D600455FC6 /* EEIncrementalStoreTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EEIncrementalStoreTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1A5FCD1177991D600455FC6 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		E1A5FCDA177991D600455FC6 /* CheckListTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CheckListTests-Info.plist"; sourceTree = "<group>"; };
+		E1A5FCDA177991D600455FC6 /* EEIncrementalStoreTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "EEIncrementalStoreTests-Info.plist"; sourceTree = "<group>"; };
 		E1A5FCDE177991D600455FC6 /* EEIncrementalStoreTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EEIncrementalStoreTests.h; sourceTree = "<group>"; };
 		E1A5FCDF177991D600455FC6 /* EEIncrementalStoreTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EEIncrementalStoreTests.m; sourceTree = "<group>"; };
 		E1A5FCFD1779DAB600455FC6 /* EEIncrementalStoreRESTClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EEIncrementalStoreRESTClient.h; sourceTree = "<group>"; };
@@ -109,6 +117,15 @@
 		E1E30A2E184C946E007004B6 /* NSManagedObject+DataMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+DataMapper.h"; sourceTree = "<group>"; };
 		E1E30A2F184C946E007004B6 /* NSManagedObject+DataMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+DataMapper.m"; sourceTree = "<group>"; };
 		E1E30A34184C99A4007004B6 /* ESLUpdatableModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESLUpdatableModel.h; sourceTree = "<group>"; };
+		E1F509E91908F53A00B523F4 /* ESLNetworkAvailability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESLNetworkAvailability.h; sourceTree = "<group>"; };
+		E1F509EA1908F53A00B523F4 /* ESLNetworkAvailability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESLNetworkAvailability.m; sourceTree = "<group>"; };
+		E1F509EB1908F53A00B523F4 /* ESLNetworkOperationQueueObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESLNetworkOperationQueueObserver.h; sourceTree = "<group>"; };
+		E1F509EC1908F53A00B523F4 /* ESLNetworkOperationQueueObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESLNetworkOperationQueueObserver.m; sourceTree = "<group>"; };
+		E1F509F11908F61700B523F4 /* NSManagedObjectContext+saveContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+saveContext.h"; sourceTree = "<group>"; };
+		E1F509F21908F61700B523F4 /* NSManagedObjectContext+saveContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+saveContext.m"; sourceTree = "<group>"; };
+		E1F509F51908F91E00B523F4 /* ESLLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESLLoadingView.h; sourceTree = "<group>"; };
+		E1F509F61908F91E00B523F4 /* ESLLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESLLoadingView.m; sourceTree = "<group>"; };
+		E1F509F91908F93B00B523F4 /* ESLSynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESLSynthesizeSingleton.h; sourceTree = "<group>"; };
 		FE59C41A90AA42568B799FF5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -241,7 +258,7 @@
 		E1A5FCD9177991D600455FC6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				E1A5FCDA177991D600455FC6 /* CheckListTests-Info.plist */,
+				E1A5FCDA177991D600455FC6 /* EEIncrementalStoreTests-Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -283,6 +300,10 @@
 		E1C19B5B1844AA0E0027FE85 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E1F509E91908F53A00B523F4 /* ESLNetworkAvailability.h */,
+				E1F509EA1908F53A00B523F4 /* ESLNetworkAvailability.m */,
+				E1F509EB1908F53A00B523F4 /* ESLNetworkOperationQueueObserver.h */,
+				E1F509EC1908F53A00B523F4 /* ESLNetworkOperationQueueObserver.m */,
 				E1A5FCBF177991D600455FC6 /* ESLAppDelegate.h */,
 				E1A5FCC0177991D600455FC6 /* ESLAppDelegate.m */,
 			);
@@ -292,6 +313,9 @@
 		E1C19B5D1844AB9C0027FE85 /* UserInterface */ = {
 			isa = PBXGroup;
 			children = (
+				E1F509F91908F93B00B523F4 /* ESLSynthesizeSingleton.h */,
+				E1F509F51908F91E00B523F4 /* ESLLoadingView.h */,
+				E1F509F61908F91E00B523F4 /* ESLLoadingView.m */,
 				E1970F0B18C5D0540001A84F /* ESLTableViewCellProtocol.h */,
 				E1970F0518C5D00A0001A84F /* MainStoryBoard~ipad.storyboard */,
 				E1970F0618C5D00A0001A84F /* MainStoryBoard~iphone.storyboard */,
@@ -313,9 +337,11 @@
 			children = (
 				E1E30A2C184C946E007004B6 /* ESLPersistenceManager.h */,
 				E1E30A2D184C946E007004B6 /* ESLPersistenceManager.m */,
+				E1E30A34184C99A4007004B6 /* ESLUpdatableModel.h */,
 				E1E30A2E184C946E007004B6 /* NSManagedObject+DataMapper.h */,
 				E1E30A2F184C946E007004B6 /* NSManagedObject+DataMapper.m */,
-				E1E30A34184C99A4007004B6 /* ESLUpdatableModel.h */,
+				E1F509F11908F61700B523F4 /* NSManagedObjectContext+saveContext.h */,
+				E1F509F21908F61700B523F4 /* NSManagedObjectContext+saveContext.m */,
 			);
 			path = persistence;
 			sourceTree = "<group>";
@@ -368,7 +394,8 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = ESSL;
-				LastUpgradeCheck = 0460;
+				LastTestingUpgradeCheck = 0510;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Esselunga;
 				TargetAttributes = {
 					E1A5FCAA177991D600455FC6 = {
@@ -466,14 +493,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1F509F31908F61700B523F4 /* NSManagedObjectContext+saveContext.m in Sources */,
+				E1F509ED1908F53A00B523F4 /* ESLNetworkAvailability.m in Sources */,
 				E1B77FD918C499FC008F01B0 /* ESLIdentityPayload.m in Sources */,
 				E1A5FCBD177991D600455FC6 /* main.m in Sources */,
 				E1A5FCC1177991D600455FC6 /* ESLAppDelegate.m in Sources */,
 				E1A5FD011779DAB600455FC6 /* EEIncrementalStoreRESTClient.m in Sources */,
 				E1A5FD031779DAB600455FC6 /* EEIncrementalStore.m in Sources */,
+				E1F509F71908F91E00B523F4 /* ESLLoadingView.m in Sources */,
 				E1E30A32184C946E007004B6 /* NSManagedObject+DataMapper.m in Sources */,
 				E1B35C80184DDD6800393AA9 /* ESLGenericFetchedTableDataSource.m in Sources */,
 				E1B77FD718C499FC008F01B0 /* ESLIdentityManager.m in Sources */,
+				E1F509EF1908F53A00B523F4 /* ESLNetworkOperationQueueObserver.m in Sources */,
 				E1395D65179FCB5300E6EB9C /* ESLPreferenceManager.m in Sources */,
 				E1A5063418C4DB3900F2E8C0 /* EEIncrementalStore.xcdatamodeld in Sources */,
 				E1E30A30184C946E007004B6 /* ESLPersistenceManager.m in Sources */,
@@ -484,7 +515,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1F509EE1908F53A00B523F4 /* ESLNetworkAvailability.m in Sources */,
 				E1B77FDA18C499FC008F01B0 /* ESLIdentityPayload.m in Sources */,
+				E1F509F41908F61700B523F4 /* NSManagedObjectContext+saveContext.m in Sources */,
 				E1A5FCE0177991D600455FC6 /* EEIncrementalStoreTests.m in Sources */,
 				E1A5FD021779DAB600455FC6 /* EEIncrementalStoreRESTClient.m in Sources */,
 				E1A5FD041779DAB600455FC6 /* EEIncrementalStore.m in Sources */,
@@ -492,6 +525,8 @@
 				E1395D66179FCB5300E6EB9C /* ESLPreferenceManager.m in Sources */,
 				E1B77FD818C499FC008F01B0 /* ESLIdentityManager.m in Sources */,
 				E1B35C81184DDD6800393AA9 /* ESLGenericFetchedTableDataSource.m in Sources */,
+				E1F509F81908F91E00B523F4 /* ESLLoadingView.m in Sources */,
+				E1F509F01908F53A00B523F4 /* ESLNetworkOperationQueueObserver.m in Sources */,
 				E1E30A31184C946E007004B6 /* ESLPersistenceManager.m in Sources */,
 				E1A5063518C4DB3900F2E8C0 /* EEIncrementalStore.xcdatamodeld in Sources */,
 			);
@@ -512,7 +547,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -537,7 +571,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MOMC_NO_INVERSE_RELATIONSHIP_WARNINGS = YES;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "1D0B6EC3-1164-4119-B151-E4FB1D783528";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1D0B6EC3-1164-4119-B151-E4FB1D783528";
 				SDKROOT = iphoneos;
@@ -551,7 +585,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -585,7 +618,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FE59C41A90AA42568B799FF5 /* Pods.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Roberto Avanzi (42JYNXU65G)";
@@ -604,7 +636,7 @@
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "741D2640-1AA8-4DFF-A871-1AFF1D9DFD6D";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7s armv7 i386";
 				WRAPPER_EXTENSION = app;
 			};
@@ -614,7 +646,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FE59C41A90AA42568B799FF5 /* Pods.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution: Esselunga SPA";
@@ -633,7 +664,7 @@
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E72BE788-D85A-4924-BCAD-55663FC759F2";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7s armv7 i386";
 				WRAPPER_EXTENSION = app;
 			};

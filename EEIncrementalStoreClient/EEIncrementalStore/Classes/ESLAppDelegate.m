@@ -9,6 +9,8 @@
 #import "ESLAppDelegate.h"
 #import "ESLPreferenceManager.h"
 #import "ESLPersistenceManager.h"
+#import "ESLNetworkAvailability.h"
+#import "ESLNetworkOperationQueueObserver.h"
 
 @implementation ESLAppDelegate
 
@@ -16,7 +18,8 @@
 {
     [ESLPreferenceManager sharedInstance];
     [ESLPersistenceManager sharedInstance];
-   
+    [ESLNetworkAvailability sharedInstance];
+    [ESLNetworkOperationQueueObserver sharedInstance];
     [_window makeKeyAndVisible];
     
     return YES;

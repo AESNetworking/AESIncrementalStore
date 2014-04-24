@@ -319,12 +319,15 @@
         } failure:^(AFHTTPRequestOperation *request, NSError *error) {
             [self.jsonRequest removeAllObjects];
             NSLog(@"Commit fallita, Request Failed with Error: %@, %@", error, error.userInfo);
-            NSString *notificationName = AFIncrementalStoreContextDidSaveRemoteValues;
+            NSString *notificationName = AFIncrementalStoreSaveChangePostPoneRequestErrorKey;
             
             NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
             if (error) {
                 [userInfo setObject:error forKey:AFIncrementalStoreFetchSaveRequestErrorKey];
             }
+            [userInfo setObject:mObjectContext forKey:@"context"];
+            [userInfo setObject:request forKey:@"operation"];
+            
             [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:mObjectContext userInfo:userInfo];
             
         }];
@@ -492,48 +495,48 @@
 
 }
 
-static NSString * TTTISO8601TimestampFromDate(NSDate *date) {
-    static NSDateFormatter *_iso8601DateFormatter = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _iso8601DateFormatter = [[NSDateFormatter alloc] init];
-        [_iso8601DateFormatter setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss z"];
-        [_iso8601DateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
-        [_iso8601DateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT"]];
-        
-    });
-    
-    return [_iso8601DateFormatter stringFromDate:date];
-}
-
 - (void) executeDeletedService: (NSNotification* )note {
+
     NSLog(@"****************************************************** IncrementaleStore sincronizzato, chiamo deleted");
-    NSString * baseURL=[[ESLPreferenceManager sharedInstance] serverURL];
-    NSURL * urlService=[[[NSURL alloc] initWithString:baseURL] URLByAppendingPathComponent:@"deletedentities"];
-    NSManagedObjectContext * context=[note.userInfo objectForKey:@"context"];
-    NSMutableURLRequest * request=[self requestWithMethod:@"GET" path:[urlService absoluteString] parameters:nil];
-#warning FIXME, per adesso mandiamo tutto
-    [request setValue:TTTISO8601TimestampFromDate([NSDate distantPast]) forHTTPHeaderField:@"If-Modified-Since"];
-    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSHTTPURLResponse * response=operation.response;
-        NSUInteger responseCode=[response statusCode];
-        NSLog(@"Server committato with response code = %ld, JSON = %@\n", (long)responseCode, responseObject);
-        NSNotification * notif=[NSNotification notificationWithName:ESLIncrementalStoredeletedFromAPIClient
-                                                             object:responseObject
-                                                           userInfo:[NSDictionary dictionaryWithObject:context forKey:@"context"]];
-        [[NSNotificationCenter defaultCenter]
-                               postNotification:notif];
+    NSError * error=[note.userInfo objectForKey:AFIncrementalStoreFetchSaveRequestErrorKey];
+    // eseguiamo il servizio di delete solo se il save di incremental store è andato a buon fine e error è nil
+    if (error==nil) {
         
-    } failure:^(AFHTTPRequestOperation *request, NSError *error) {
-        NSLog(@"deleted fallita, Request Failed with Error: %@, %@", error, error.userInfo);
-        [[NSNotificationCenter defaultCenter]
-         postNotification:
-         [NSNotification notificationWithName:ESLIncrementalStoredeletedFailFromAPIClient
-                                       object:error]];
-    }];
-    operation.successCallbackQueue=self->_successRequestQueue;
-    operation.failureCallbackQueue=self->_failureRequestQueue;
-    [self enqueueHTTPRequestOperation:operation];
+        NSString * baseURL=[[ESLPreferenceManager sharedInstance] serverURL];
+        NSURL * urlService=[[[NSURL alloc] initWithString:baseURL] URLByAppendingPathComponent:@"deletedentities"];
+        NSManagedObjectContext * context=[note.userInfo objectForKey:@"context"];
+        NSMutableURLRequest * request=[self requestWithMethod:@"GET" path:[urlService absoluteString] parameters:nil];
+        NSManagedObject * lastSyncObject=[[[ESLPersistenceManager sharedInstance] incrementalStore] retrieveLastSyncObject];
+        NSString * dateSyncString=[lastSyncObject valueForKey:@"lastSync"];
+        [request setValue:dateSyncString forHTTPHeaderField:@"If-Modified-Since"];
+        DEBUG_LOG(@"request of deletedentities with If-Modified-Since = %@\n", dateSyncString);
+        __block AFHTTPRequestOperation *requestOperation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSHTTPURLResponse * response=operation.response;
+            NSUInteger responseCode=[response statusCode];
+            NSLog(@"Server committato with response code = %ld, JSON = %@\n", (long)responseCode, responseObject);
+            NSString * lastDeletedSync=[[response allHeaderFields] valueForKey:@"Last-Modified"];
+            DEBUG_LOG(@"response to deletedentities with Last Modified = %@\n", lastDeletedSync);
+            NSDictionary * userInfo=[NSDictionary dictionaryWithObjectsAndKeys:context, @"context",
+                                     lastDeletedSync, @"lastdeletedsync",
+                                     requestOperation, @"operation",
+                                     nil];
+            NSNotification * notif=[NSNotification notificationWithName:ESLIncrementalStoredeletedFromAPIClient
+                                                                 object:responseObject
+                                                               userInfo:userInfo];
+            [[NSNotificationCenter defaultCenter]
+             postNotification:notif];
+            
+        } failure:^(AFHTTPRequestOperation *request, NSError *error) {
+            NSLog(@"deleted fallita, Request Failed with Error: %@, %@", error, error.userInfo);
+            [[NSNotificationCenter defaultCenter]
+             postNotification:
+             [NSNotification notificationWithName:ESLIncrementalStoredeletedFailFromAPIClient
+                                           object:error]];
+        }];
+        requestOperation.successCallbackQueue=self->_successRequestQueue;
+        requestOperation.failureCallbackQueue=self->_failureRequestQueue;
+        [self enqueueHTTPRequestOperation:requestOperation];
+    }
 }
 
 - (void)failSave:(NSNotification *)note {

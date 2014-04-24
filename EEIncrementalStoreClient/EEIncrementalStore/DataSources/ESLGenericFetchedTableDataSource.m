@@ -8,12 +8,16 @@
 
 #import "ESLGenericFetchedTableDataSource.h"
 #import "ESLPersistenceManager.h"
-
+#import "EEIncrementalStore.h"
 #import <objc/runtime.h>
 
 @interface ESLGenericFetchedTableDataSource()
 
 @property (assign) id<NSFetchedResultsControllerDelegate> delegate;
+@property (nonatomic,strong) id willFetchObserver;
+@property (nonatomic,strong) id didFetchObserver;
+@property (nonatomic,strong) id willSaveObserver; // not used now
+@property (nonatomic,strong) id didSaveObserver;
 
 @end
 
@@ -21,18 +25,60 @@
 
 @synthesize fetchedResultControllerDataSource = _fetchedResultControllerDataSource;
 
-- (void) assignDelegate:(id<NSFetchedResultsControllerDelegate>) delegate andCellFactory:(id<ESLTableViewCellProtocol>) factory {
+-(id)init {
+    if (self=[super init]) {
+        self.selectedRow=-1;
+    }
+    return self;
+}
 
+
+-(void)willFetchObserver:(NSNotification *)note {
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        NSFetchRequest * fetchRequest=[note.userInfo objectForKey:AFIncrementalStorePersistentStoreRequestKey];
+        if ([[fetchRequest entityName] isEqualToString:self.fetchedEntityName]) {
+            if ([_contextDelegate respondsToSelector:@selector(genericFetchedTableDataSourceWillChangeContent:)]) {
+                [_contextDelegate genericFetchedTableDataSourceWillChangeContent:self];
+            }
+        }
+    }];
+}
+
+-(void)didFetchObserver:(NSNotification *)note {
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        NSFetchRequest * fetchRequest=[note.userInfo objectForKey:AFIncrementalStorePersistentStoreRequestKey];
+        if ([[fetchRequest entityName] isEqualToString:self.fetchedEntityName]) {
+            if ([_contextDelegate respondsToSelector:@selector(genericFetchedTableDataSourceDidChangeContent:)]) {
+                [_contextDelegate genericFetchedTableDataSourceDidChangeContent:self];
+            }
+        }
+    }];
+}
+
+-(void)didSaveObserver:(NSNotification *)note {
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        if ([_contextDelegate respondsToSelector:@selector(genericFetchedTableDataSourceDidChangeContent:)]) {
+            [_contextDelegate genericFetchedTableDataSourceDidChangeContent:self];
+        }
+    }];
+}
+
+- (void) assignDelegate:(id<NSFetchedResultsControllerDelegate>) delegate andCellFactory:(id<ESLTableViewCellProtocol>) factory {
+    
     if( self ) {
         self.delegate = delegate;
         self.factory = factory;
+        NSNotificationCenter * defaultCenter=[NSNotificationCenter defaultCenter];
+        [defaultCenter addObserver:self selector:@selector(willFetchObserver:) name:AFIncrementalStoreContextWillFetchRemoteValues object:nil];
+        [defaultCenter addObserver:self selector:@selector(didFetchObserver:) name:AFIncrementalStoreContextDidFetchRemoteValues object:nil];
+        [defaultCenter addObserver:self selector:@selector(didSaveObserver:) name:AFIncrementalStoreContextDidSaveRemoteValues object:nil];
     }
 }
 
 #pragma mark - Fetch Request property accessors
 
 - (NSFetchedResultsController*)fetchedResultControllerDataSource {
-
+    
     if(_fetchedResultControllerDataSource==nil ) {
         
         ESLPersistenceManager *serviceManager = [ESLPersistenceManager sharedInstance];
@@ -40,12 +86,13 @@
         _fetchedResultControllerDataSource = [self createFetchedResultControllerWithTemplate:serviceManager];
         _fetchedResultControllerDataSource.delegate=self.delegate;
         
-		NSError * error;
-        
-        if( ![_fetchedResultControllerDataSource performFetch: &error] ) {
-            // Stamperemo qualcosa di intelligente
-			DEBUG_LOG(@"%@", error);
+        // nota, devo per forza lasciare questo fetch nel generic data source ed
+        // utilizzarlo anche se sono offline, altrimenti non carica niente ...
+        NSError * error=nil;
+        if (![self.fetchedResultControllerDataSource performFetch:&error]) {
+            NSLog(@"Fetch error %@, %@", error, [error userInfo]);
         }
+        
     }
     
     return _fetchedResultControllerDataSource;
@@ -67,24 +114,25 @@
     NSInteger count = 0;
     //id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultControllerDataSource sections] objectAtIndex:section];
 	// sometimes crashed, may be some refs was nil? add more control:
-
+    
 	NSArray *sections = [self.fetchedResultControllerDataSource sections];
 	if ([sections count]>0) // if nil count is zero...
-	{
+        {
 		id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:section];
 		count = [sectionInfo numberOfObjects];
-	}
+        }
 	else
-	{
+        {
 		DEBUG_LOG(@"numberOfRows: %ld;  InSection: %ld, ", (long)section, (long)count);
-	}
-   // DEBUG_LOG(@"numberOfRows: %d;  InSection: %d, ", count, section);
+        }
+    // DEBUG_LOG(@"numberOfRows: %d;  InSection: %d, ", count, section);
     return count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [self.factory dequeueReusableCellWithIdentifier:self.cellIdentifier forIndexPath:indexPath withTable:tableView];
+    NSUInteger row=indexPath.row;
     
     cell.tag = [self calculateTagForCellAtIndexPath:indexPath];
     
@@ -104,9 +152,27 @@
     
     [self populateCell:cell withModel:modelObject];
     
+    if (self.selectedRow==row) {
+        cell.accessoryType=UITableViewCellAccessoryCheckmark;
+    } else {
+        cell.accessoryType=UITableViewCellAccessoryNone;
+    }
+    
     return cell;
 }
+-(void)setSelectedRow:(NSInteger)selectedRow {
+    _selectedRow=selectedRow;
+}
 
+-(void)setSelecteRowOnManagedObject:(NSManagedObject *)object {
+    
+    if (object!=nil) {
+        NSIndexPath * selectedIndexPath = [self.fetchedResultControllerDataSource indexPathForObject:object];
+        if (selectedIndexPath!=nil) {
+            self.selectedRow=selectedIndexPath.row;
+        }
+    }
+}
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
     return self.fetchedResultControllerDataSource.sectionIndexTitles;
 }
@@ -126,4 +192,12 @@
     return nil;
 }
 /* Roberto stop */
+
+-(void)dealloc {
+    
+    DEBUG_LOG(@"dealloc on generic fetch data source");
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+}
+
 @end

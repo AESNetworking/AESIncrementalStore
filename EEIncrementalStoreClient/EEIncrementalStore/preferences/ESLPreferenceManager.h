@@ -16,5 +16,6 @@
 @property (readonly) NSString * username;
 @property (readonly) NSString * serverPassword;
 @property (readonly) NSString * validationURL;
+@property (readonly) NSNumber * eraseCoreDataDB;
 
 @end

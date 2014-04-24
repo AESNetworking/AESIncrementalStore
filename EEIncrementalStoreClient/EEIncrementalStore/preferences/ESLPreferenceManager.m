@@ -11,12 +11,12 @@
 static ESLPreferenceManager *singleInstance;
 
 @implementation ESLPreferenceManager {
-    @private
+@private
     NSUserDefaults *userDefaults;
 }
 
 + (ESLPreferenceManager*) sharedInstance {
-
+    
     @synchronized(singleInstance) {
         if( !singleInstance ) {
             singleInstance = [[ESLPreferenceManager alloc] initInternal];
@@ -60,6 +60,9 @@ static ESLPreferenceManager *singleInstance;
     return [userDefaults objectForKey:@"it.esselunga.mobile.validationURL"];
 }
 
+- (NSNumber *) eraseCoreDataDB {
+    return [userDefaults objectForKey:@"it.esselunga.mobile.erasedatabutton"];
+}
 
 - (void)readDefaultValuesFromSettingsBundle
 {
@@ -76,14 +79,16 @@ static ESLPreferenceManager *singleInstance;
     
     NSDictionary *prefItem;
     for (prefItem in prefSpecifierArray)
-    {
+        {
         NSString *keyValueStr = [prefItem objectForKey:@"Key"];
         id defaultValue = [prefItem objectForKey:@"DefaultValue"];
         
-        [appDefaults setObject:defaultValue forKey:keyValueStr];
-    }
+        if (defaultValue!=nil) {
+            [appDefaults setObject:defaultValue forKey:keyValueStr];
+        }
+        }
     
-    [[NSUserDefaults standardUserDefaults] registerDefaults:appDefaults];    
+    [[NSUserDefaults standardUserDefaults] registerDefaults:appDefaults];
 }
 
 @end

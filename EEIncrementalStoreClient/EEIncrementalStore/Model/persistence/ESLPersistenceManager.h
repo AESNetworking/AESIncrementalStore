@@ -7,6 +7,8 @@
 //
 
 #import "CoreDataIncrementalStoreProtocol.h"
+#import "NSManagedObjectContext+saveContext.h"
+#import "ESLGenericFetchedTableDataSource.h"
 
 static NSString * const NewNSDataNotification       = @"NewNSDataNotification";
 static NSString * const NewNSArrayNotification      = @"NewNSArrayNotification";
@@ -17,6 +19,11 @@ extern NSString * kESLExceptionDidNotSaveMainContext;
 @interface ESLPersistenceManager : NSObject<CoreDataIncrementalStoreProtocol>
 
 + (ESLPersistenceManager*)sharedInstance;
+
+@property (nonatomic,strong)  NSManagedObjectContext * testManagedObjectContext;
+@property (nonatomic,strong)  NSPersistentStoreCoordinator  * testPersistentStoreCoordinator;
+@property (nonatomic) BOOL useTestManagedObjectContext;
+@property (nonatomic,strong) NSOperationQueue *offlineOperationQueue;
 
 - (NSFetchedResultsController*)createFetchedResultControllerWithTemplate:(NSString*)templateName
                                                withSubstitutionVariables:(NSDictionary*)substitutionVariables
@@ -37,13 +44,10 @@ extern NSString * kESLExceptionDidNotSaveMainContext;
 - (NSFetchedResultsController*)createFetchedResultControllerWithFetchRequest:(NSFetchRequest *)fetchRequest
                                                       withSectionNameKeyPath:(NSString*)sectionNameKeyPath
                                                                     andCache:(NSString *)cacheName;
-- (void)saveContextAndParents:(NSManagedObjectContext *)managedobject;
-- (void)saveMainContextAndWait;
 
 - (void)warnMeWhenMainContextIsSaved:(id)observer usingThisSelector:(SEL)aSelector;
 
-@property (nonatomic,strong)  NSManagedObjectContext * testManagedObjectContext;
-@property (nonatomic,strong)  NSPersistentStoreCoordinator  * testPersistentStoreCoordinator;
-@property (nonatomic) BOOL useTestManagedObjectContext;
+-(void)executeFetchOnGenericDataSource:(ESLGenericFetchedTableDataSource *)dataSource;
+-(void)executeRollback;
 
 @end

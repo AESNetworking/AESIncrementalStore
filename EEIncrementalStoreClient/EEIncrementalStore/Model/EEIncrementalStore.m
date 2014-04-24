@@ -66,6 +66,12 @@
      selector:@selector(postPonedSaveChangeRequest:)
      name:AFIncrementalStoreSaveChangePostPoneRequestKey
      object:nil];
+    
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(postPonedSaveChangeRequestError:)
+     name:AFIncrementalStoreSaveChangePostPoneRequestErrorKey
+     object:nil];
 }
 
 #pragma mark - loadMetadata method override

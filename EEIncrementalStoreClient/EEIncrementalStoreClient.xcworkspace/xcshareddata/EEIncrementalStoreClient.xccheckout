@@ -5,19 +5,19 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>FD2F2A83-EF9E-44BE-AAED-71465172F20F</string>
+	<string>205868EA-E1C8-44CC-9838-48B8338C0A60</string>
 	<key>IDESourceControlProjectName</key>
 	<string>EEIncrementalStoreClient</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>0859EEAC-52E2-4AD4-8FB5-6BBCABC9C030</key>
+		<key>FD66A5DF-D421-44BB-A820-ABF6B1871C2B</key>
 		<string>https://github.com/EENetworking/EEIncrementalStore.git/</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>EEIncrementalStoreClient/EEIncrementalStoreClient.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>0859EEAC-52E2-4AD4-8FB5-6BBCABC9C030</key>
+		<key>FD66A5DF-D421-44BB-A820-ABF6B1871C2B</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>0859EEAC-52E2-4AD4-8FB5-6BBCABC9C030</string>
+	<string>FD66A5DF-D421-44BB-A820-ABF6B1871C2B</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>0859EEAC-52E2-4AD4-8FB5-6BBCABC9C030</string>
+			<string>FD66A5DF-D421-44BB-A820-ABF6B1871C2B</string>
 			<key>IDESourceControlWCCName</key>
 			<string>EEIncrementalStore</string>
 		</dict>

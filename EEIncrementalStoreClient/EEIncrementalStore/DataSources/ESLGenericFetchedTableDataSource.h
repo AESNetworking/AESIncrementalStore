@@ -28,6 +28,8 @@ static NSInteger const CellOffset = 1000000;
 
 @end
 
+@protocol ESLGenericFetchedChangeContextDelegate;
+
 @interface ESLGenericFetchedTableDataSource : NSObject<UITableViewDataSource, ESLGenericFetchedTableDataSourceProtocol, ESLCellTagCalculator>
 
 @property (nonatomic,assign) id<ESLTableViewCellProtocol>factory;
@@ -35,5 +37,23 @@ static NSInteger const CellOffset = 1000000;
 @property (nonatomic,retain,readonly) NSFetchedResultsController* fetchedResultControllerDataSource;
 
 - (void) assignDelegate:(id<NSFetchedResultsControllerDelegate>) delegate andCellFactory:(id<ESLTableViewCellProtocol>) factory;
+
+@property (nonatomic,assign) NSInteger selectedRow;
+
+@property (nonatomic,strong,readonly) NSString * fetchedEntityName;
+
+@property (nonatomic,assign) id<ESLGenericFetchedChangeContextDelegate> contextDelegate;
+
+-(void)setSelecteRowOnManagedObject:(NSManagedObject *)object;
+
+@end
+
+@protocol ESLGenericFetchedChangeContextDelegate <NSObject>
+
+@optional
+
+-(void)genericFetchedTableDataSourceWillChangeContent:(ESLGenericFetchedTableDataSource *)fetchTableDataSource;
+-(void)genericFetchedTableDataSourceDidChangeContent:(ESLGenericFetchedTableDataSource *)fetchTableDataSource;
+
 
 @end

@@ -9,10 +9,30 @@
 #import "ESLPersistenceManager.h"
 #import "ESLUpdatableModel.h"
 #import "EEIncrementalStore.h"
+#import "ESLPreferenceManager.h"
 #import <objc/runtime.h>
 
-NSString * kESLExceptionDidNotSaveMainContext=@"ESLExceptionDidNotSaveMainContext";
 
+#pragma mark - ESLIncrementalStoreSaveOperation class
+@interface ESLIncrementalStoreSaveOperation:NSBlockOperation
+@end
+
+@implementation ESLIncrementalStoreSaveOperation
+
+@end
+
+#pragma mark - ESLIncrementalStoreFetchOperation class
+@interface ESLIncrementalStoreFetchOperation:NSBlockOperation
+@property (nonatomic,strong) NSString * entityName;
+
+@end
+
+@implementation ESLIncrementalStoreFetchOperation
+
+@end
+
+#pragma mark - ESLPersistenceManager class extension
+NSString * kESLExceptionDidNotSaveMainContext=@"ESLExceptionDidNotSaveMainContext";
 @interface ESLPersistenceManager()
 
 @property (nonatomic, strong) NSManagedObjectContext *persistentParentMOC;
@@ -20,6 +40,7 @@ NSString * kESLExceptionDidNotSaveMainContext=@"ESLExceptionDidNotSaveMainContex
 
 @end
 
+#pragma mark - ESLPersistenceManager class implementation
 @implementation ESLPersistenceManager
 
 static NSString * const UpdateFinishedNotification = @"InternalWarnMeWhenContextFinished";
@@ -33,35 +54,38 @@ ESLPersistenceManager * sharedInstance = nil;
 
 +(ESLPersistenceManager*)sharedInstance {
     if (sharedInstance == nil)
-    {
+        {
         sharedInstance = [ESLPersistenceManager new];
-
+        
         sharedInstance.backgroundQueue = [NSOperationQueue new];
         sharedInstance.backgroundQueue.name = @"ServiceManagerQueue";
         
+        sharedInstance.offlineOperationQueue = [NSOperationQueue new];
+        sharedInstance.offlineOperationQueue.name = @"ESLPersistenceManagerOfflineOperationQueue";
+        
         [[NSNotificationCenter defaultCenter] addObserver:sharedInstance
                                                  selector:@selector(updateEntitiesWithData:)
-                                                 name:NewNSDataNotification
+                                                     name:NewNSDataNotification
                                                    object:nil];
-
+        
         [[NSNotificationCenter defaultCenter] addObserver:sharedInstance
                                                  selector:@selector(updateEntitiesWithArray:)
                                                      name:NewNSArrayNotification
                                                    object:nil];
-
+        
         [[NSNotificationCenter defaultCenter] addObserver:sharedInstance
                                                  selector:@selector(errorUpdatingReleaseProgressIndicator:)
                                                      name:NoNewNSArrayNotification
                                                    object:nil];
-    
+        
         sharedInstance=[sharedInstance initInternal];
-    }
+        }
     
     return sharedInstance;
 }
 
 -(id)initInternal {
-
+    
     if (self=[super init]) {
         // used for first creation of incremental store
         [self managedObjectContext];
@@ -71,7 +95,7 @@ ESLPersistenceManager * sharedInstance = nil;
 }
 
 - (void)warnMeWhenMainContextIsSaved:(id)observer usingThisSelector:(SEL)aSelector {
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:observer
                                              selector:aSelector
                                                  name:UpdateFinishedNotification
@@ -83,7 +107,7 @@ ESLPersistenceManager * sharedInstance = nil;
 }
 
 -(void)updateEntitiesWithData:(NSNotification *)notif {
-
+    
     [self.backgroundQueue addOperationWithBlock:^{
         NSData *bufferConnection = notif.object;
         NSDictionary *userInfo = notif.userInfo;
@@ -110,8 +134,8 @@ ESLPersistenceManager * sharedInstance = nil;
     DEBUG_LOG(@"before parse");
     Class<ESLUpdatableModel> entityClass = NSClassFromString(entityName);
     NSArray * newEntities = [entityClass deserializeData: bufferConnection];
-
-//    NSArray * newEntities =[NSJSONSerialization JSONObjectWithData:bufferConnection  options:kNilOptions error:nil];
+    
+    //    NSArray * newEntities =[NSJSONSerialization JSONObjectWithData:bufferConnection  options:kNilOptions error:nil];
     DEBUG_LOG(@"after parse, num of entities: %lu", (unsigned long)newEntities.count);
     
     [self updateLocalEntities:entityName withNewEntities:newEntities usingFetchedRequest:templateName];
@@ -163,7 +187,7 @@ ESLPersistenceManager * sharedInstance = nil;
             for (NSNumber *entityId in keysWithEntities) {
                 
                 id<ESLUpdatableModel> newEntity = [NSEntityDescription insertNewObjectForEntityForName:entityName
-                                                                               inManagedObjectContext:localMOC];
+                                                                                inManagedObjectContext:localMOC];
                 
                 [newEntity fillWithDataDictionary:[keysWithEntities objectForKey: entityId]];
             }
@@ -175,11 +199,11 @@ ESLPersistenceManager * sharedInstance = nil;
                 DEBUG_LOG(@"%@,%@",saveError.localizedDescription, saveError.userInfo);
             } else {
                 
-                [self saveContextAndParents:self.managedObjectContext];
+                [self.managedObjectContext saveContext];
             }
         }
     }];
-
+    
     importOperation.completionBlock = ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:UpdateFinishedNotification object:self];
     };
@@ -188,56 +212,6 @@ ESLPersistenceManager * sharedInstance = nil;
 }
 
 #pragma mark - UIApplicationDelegateCoreDataProtocol methods
-- (void)saveContext
-{
-    NSError *error = nil;
-    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
-    if (managedObjectContext != nil) {
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-            // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application,
-            // although it may be useful during development.
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            @throw [NSException exceptionWithName:kESLExceptionDidNotSaveMainContext
-                                           reason:[error localizedFailureReason]
-                                         userInfo:[error userInfo]];
-        }
-    }
-}
-
-- (void)saveMainContextAndWait {
-    [self.managedObjectContext performBlockAndWait:^{
-        [self saveContext];
-    }];
-}
-
-- (void)saveContext:(NSManagedObjectContext *)managedobject {
-    
-    NSError *error;
-    
-    if (managedobject != nil) {
-        
-        if ([managedobject hasChanges]) {
-            
-            if (![managedobject save:&error]) {
-                
-                DEBUG_LOG(@"Unresolved error %@, %@", error, [error userInfo]);
-                abort();
-            }
-        }
-    }
-}
-
-- (void)saveContextAndParents:(NSManagedObjectContext *)managedobject {
-    [managedobject performBlockAndWait:^{
-        [self saveContext:managedobject];
-        if (managedobject.parentContext!=nil) {
-            [managedobject.parentContext performBlockAndWait:^{
-               [self saveContextAndParents:managedobject.parentContext];
-            }];
-        }
-    }];
-}
 
 static char incrementalStoreProperty;
 
@@ -264,15 +238,31 @@ static char incrementalStoreProperty;
         
         NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
         if (coordinator != nil) {
+#if 1
             _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
             [_managedObjectContext setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
             [_managedObjectContext setPersistentStoreCoordinator:coordinator];
+            _managedObjectContext.undoManager = nil;
+            
         }
         returnContext=_managedObjectContext;
-    } else {
-        returnContext=[self testManagedObjectContext];
+#else
+        _persistentParentMOC = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        [_persistentParentMOC setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
+        _persistentParentMOC.undoManager = nil;
+        _persistentParentMOC.persistentStoreCoordinator = coordinator;
+        _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        [_managedObjectContext setMergePolicy:NSMergeByPropertyObjectTrumpMergePolicy];
+        _managedObjectContext.undoManager = nil;
+        _managedObjectContext.parentContext=_persistentParentMOC;
     }
-    return returnContext;
+    returnContext=_managedObjectContext;
+    
+#endif
+} else {
+    returnContext=[self testManagedObjectContext];
+}
+return returnContext;
 }
 
 - (NSPersistentStoreCoordinator *)testPersistentStoreCoordinator
@@ -282,11 +272,12 @@ static char incrementalStoreProperty;
     }
     
     _testPersistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc]
-                                   initWithManagedObjectModel:[self managedObjectModel]];
+                                       initWithManagedObjectModel:[self managedObjectModel]];
     
     NSURL *storeUrl = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"test.sqlite"];
     
     NSError *error;
+    
     if (![_testPersistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:nil error:&error]) {
         // Replace this implementation with code to handle the error appropriately.
         // abort() causes the application to generate a crash log and terminate.
@@ -323,8 +314,7 @@ static char incrementalStoreProperty;
 
 // Returns the managed object model for the application.
 // If the model doesn't already exist, it is created from the application's model.
-#warning Use correct xcdatamodel file path
-#define kCheckListDBName    @"EEIncrementalStore"
+#define kCheckListDBName    @"CheckList"
 #define kCheckListDBExt    @"sqlite"
 
 - (NSManagedObjectModel *)managedObjectModel
@@ -350,10 +340,10 @@ static char incrementalStoreProperty;
     NSString * storeType=[EEIncrementalStore type];
     AFIncrementalStore *incrementalStore = (AFIncrementalStore *)[_persistentStoreCoordinator
                                                                   addPersistentStoreWithType:storeType
-                                                                               configuration:nil
-                                                                                         URL:nil
-                                                                                     options:nil
-                                                                                       error:nil];
+                                                                  configuration:nil
+                                                                  URL:nil
+                                                                  options:nil
+                                                                  error:nil];
     
     NSString * dbSqliteName=[kCheckListDBName stringByAppendingPathExtension:kCheckListDBExt];
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:dbSqliteName];
@@ -367,13 +357,23 @@ static char incrementalStoreProperty;
                               };
     
     NSError *error = nil;
+    NSFileManager * defaultManager=[NSFileManager defaultManager];
+    
+    /* Erase DB when preferences flag is true */
+    NSNumber * eraseCoreDataDBFlag=[[ESLPreferenceManager sharedInstance] eraseCoreDataDB];
+    
+    if ([eraseCoreDataDBFlag boolValue]==YES &&
+        [defaultManager fileExistsAtPath:[storeURL path]]) {
+        [defaultManager removeItemAtURL:storeURL error: &error];
+    }
+    
     if (![incrementalStore.backingPersistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
                                                                           configuration:nil
                                                                                     URL:storeURL
                                                                                 options:options
                                                                                   error:&error]) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        [[NSFileManager defaultManager] removeItemAtURL:storeURL error: &error];
+        [defaultManager removeItemAtURL:storeURL error: &error];
         [incrementalStore.backingPersistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
                                                                          configuration:nil
                                                                                    URL:storeURL
@@ -396,6 +396,71 @@ static char incrementalStoreProperty;
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
+#pragma mark - saveContext method
+-(void)saveContext {
+    NSManagedObjectContext * mObjectContext=[self managedObjectContext];
+    if ([self.offlineOperationQueue isSuspended]==FALSE) {
+        [mObjectContext saveContext];
+    } else {
+        // use offlineQueue, add custom Save Operation, only if not already present
+        __block BOOL alreadyPresent=NO;
+        NSArray * operations=[self.offlineOperationQueue operations];
+        [operations enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if ([obj isKindOfClass:[ESLIncrementalStoreSaveOperation class]]) {
+                alreadyPresent=YES;
+                *stop=YES;
+            }
+        }];
+        if (alreadyPresent==NO) {
+            ESLIncrementalStoreSaveOperation * saveOperation=
+            [ESLIncrementalStoreSaveOperation
+             blockOperationWithBlock:^{
+                 [mObjectContext saveContext];
+             }];
+            [self.offlineOperationQueue addOperation:saveOperation];
+        }
+    }
+}
+
+-(void)executeFetchOnGenericDataSource:(ESLGenericFetchedTableDataSource *)dataSource {
+    NSError * error=nil;
+    if ([self.offlineOperationQueue isSuspended]==FALSE) {
+        if (![dataSource.fetchedResultControllerDataSource performFetch:&error]) {
+            NSLog(@"Fetch error %@, %@", error, [error userInfo]);
+        }
+    } else {
+        // use offlineQueue, add custom Fetch Operation, only if not already present
+        __block BOOL alreadyPresent=NO;
+        NSArray * operations=[self.offlineOperationQueue operations];
+        [operations enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if ([obj isKindOfClass:[ESLIncrementalStoreFetchOperation class]]) {
+                ESLIncrementalStoreFetchOperation * fetchOperation=(ESLIncrementalStoreFetchOperation *)obj;
+                if ([fetchOperation.entityName isEqualToString:dataSource.fetchedEntityName]) {
+                    alreadyPresent=YES;
+                    *stop=YES;
+                }
+            }
+        }];
+        
+        if (alreadyPresent==NO) {
+            ESLIncrementalStoreFetchOperation * fetchOperation=[ESLIncrementalStoreFetchOperation
+                                                                blockOperationWithBlock:^{
+                                                                    NSError * error=nil;
+                                                                    if (![dataSource.fetchedResultControllerDataSource performFetch:&error]) {
+                                                                        NSLog(@"Fetch error %@, %@", error, [error userInfo]);
+                                                                    }
+                                                                }];
+            fetchOperation.entityName=dataSource.fetchedEntityName;
+            [self.offlineOperationQueue addOperation:fetchOperation];
+        }
+    }
+}
+
+-(void)executeRollback {
+    NSManagedObjectContext * mObjectContext=[self managedObjectContext];
+    [mObjectContext rollback];
+}
+
 #pragma mark - Fetched Property
 
 - (NSFetchedResultsController*)createFetchedResultControllerWithTemplate:(NSString *)templateName
@@ -408,7 +473,7 @@ static char incrementalStoreProperty;
     NSFetchedResultsController *fetchedResultsController;
     NSManagedObjectModel *model = self.managedObjectModel;
     
-
+    
     NSFetchRequest *fetchRequest = [model fetchRequestFromTemplateWithName:templateName
                                                      substitutionVariables:substitutionVariables];
     
@@ -420,7 +485,7 @@ static char incrementalStoreProperty;
         fetchRequest.predicate = predicate;
     }
     NSManagedObjectContext * mObjectContext=[self managedObjectContext];
-
+    
     fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                    managedObjectContext:mObjectContext
                                                                      sectionNameKeyPath:sectionNameKeyPath
@@ -461,7 +526,7 @@ static char incrementalStoreProperty;
     if (havingPredicate) {
         [fetchRequest setHavingPredicate:havingPredicate];
     }
-
+    
     NSManagedObjectContext * mObjectContext=[self managedObjectContext];
     
     fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest

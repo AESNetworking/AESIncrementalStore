@@ -72,6 +72,8 @@
 - (NSManagedObjectID *)objectIDForEntity:(NSEntityDescription *)entity
                   withResourceIdentifier:(NSString *)resourceIdentifier;
 
+-(NSManagedObject *)retrieveLastSyncObject;
+
 /* main managed object Context */
 @property (nonatomic,strong) NSManagedObjectContext *mainManagedObjectContext;
 
@@ -122,6 +124,8 @@
                 inContext:(NSManagedObjectContext *)context;
 
 -(void)postPonedSaveChangeRequest:(NSNotification *)notification;
+
+-(void)postPonedSaveChangeRequestError:(NSNotification *)notification;
 
 -(void)executePostDeleteWithObjects:(NSNotification *)notification;
 
@@ -450,3 +454,7 @@ extern NSString * const AFIncrementalStoreFetchSaveRequestErrorKey;
 
 /* a key for NSSaveChangeRequest postponed modification */
 extern NSString * const AFIncrementalStoreSaveChangePostPoneRequestKey;
+
+/* a key for NSSaveChangeRequest postponed modification error */
+extern NSString * const AFIncrementalStoreSaveChangePostPoneRequestErrorKey;
+
