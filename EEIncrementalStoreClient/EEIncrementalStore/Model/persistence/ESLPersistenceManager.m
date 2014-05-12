@@ -445,10 +445,12 @@ return returnContext;
         if (alreadyPresent==NO) {
             ESLIncrementalStoreFetchOperation * fetchOperation=[ESLIncrementalStoreFetchOperation
                                                                 blockOperationWithBlock:^{
-                                                                    NSError * error=nil;
-                                                                    if (![dataSource.fetchedResultControllerDataSource performFetch:&error]) {
-                                                                        NSLog(@"Fetch error %@, %@", error, [error userInfo]);
-                                                                    }
+                                                                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                                                                        NSError * error=nil;
+                                                                        if (![dataSource.fetchedResultControllerDataSource performFetch:&error]) {
+                                                                            NSLog(@"Fetch error %@, %@", error, [error userInfo]);
+                                                                        }
+                                                                    }];
                                                                 }];
             fetchOperation.entityName=dataSource.fetchedEntityName;
             [self.offlineOperationQueue addOperation:fetchOperation];
