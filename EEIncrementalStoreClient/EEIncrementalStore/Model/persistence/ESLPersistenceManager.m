@@ -423,11 +423,13 @@ return returnContext;
 }
 
 -(void)executeFetchOnGenericDataSource:(ESLGenericFetchedTableDataSource *)dataSource {
-    NSError * error=nil;
     if ([self.offlineOperationQueue isSuspended]==FALSE) {
-        if (![dataSource.fetchedResultControllerDataSource performFetch:&error]) {
-            NSLog(@"Fetch error %@, %@", error, [error userInfo]);
-        }
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            NSError * error=nil;
+            if (![dataSource.fetchedResultControllerDataSource performFetch:&error]) {
+                NSLog(@"Fetch error %@, %@", error, [error userInfo]);
+            }
+        }];
     } else {
         // use offlineQueue, add custom Fetch Operation, only if not already present
         __block BOOL alreadyPresent=NO;
@@ -461,6 +463,7 @@ return returnContext;
 -(void)executeRollback {
     NSManagedObjectContext * mObjectContext=[self managedObjectContext];
     [mObjectContext rollback];
+
 }
 
 #pragma mark - Fetched Property
