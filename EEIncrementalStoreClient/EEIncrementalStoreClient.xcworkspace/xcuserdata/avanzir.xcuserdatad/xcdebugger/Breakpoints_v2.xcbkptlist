@@ -75,7 +75,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "757"
             endingLineNumber = "757"
-            landmarkName = "-saveInsertedObject:inContext:"
+            landmarkName = "-executeFetchRequest:withContext:error:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -92,22 +92,6 @@
             startingLineNumber = "765"
             endingLineNumber = "765"
             landmarkName = "-saveInsertedObject:inContext:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Pods/AFIncrementalStore/AFIncrementalStore/AFIncrementalStore.m"
-            timestampString = "415532759.465"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "862"
-            endingLineNumber = "862"
-            landmarkName = "-postPonedSaveChangeRequest:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -187,8 +171,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "348"
             endingLineNumber = "348"
-            landmarkName = "@implementation AFIncrementalStore"
-            landmarkType = "3">
+            landmarkName = "-objectIDForBackingObjectForEntity:withPrimaryKey:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -251,22 +235,6 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "991"
             endingLineNumber = "991"
-            landmarkName = "-postPonedSaveChangeRequest:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Pods/AFIncrementalStore/AFIncrementalStore/AFIncrementalStore.m"
-            timestampString = "415532759.465"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "944"
-            endingLineNumber = "944"
             landmarkName = "-postPonedSaveChangeRequest:"
             landmarkType = "5">
          </BreakpointContent>
@@ -347,8 +315,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "258"
             endingLineNumber = "258"
-            landmarkName = "@implementation AFIncrementalStore"
-            landmarkType = "3">
+            landmarkName = "-notifyManagedObjectContext:aboutRequestOperation:forNewValuesForRelationship:forObjectWithID:withError:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -396,22 +364,6 @@
             startingLineNumber = "320"
             endingLineNumber = "320"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Pods/AFIncrementalStore/AFIncrementalStore/AFIncrementalStore.m"
-            timestampString = "414941037.800358"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "704"
-            endingLineNumber = "704"
-            landmarkName = "-executeFetchRequest:withContext:error:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -540,38 +492,6 @@
             startingLineNumber = "268"
             endingLineNumber = "268"
             landmarkName = "-createDepartment"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Pods/AFIncrementalStore/AFIncrementalStore/AFIncrementalStore.m"
-            timestampString = "414941037.800358"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "509"
-            endingLineNumber = "509"
-            landmarkName = "-insertOrUpdateObjectsFromRepresentations:ofEntity:fromResponse:withContext:error:completionBlock:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Pods/AFIncrementalStore/AFIncrementalStore/AFIncrementalStore.m"
-            timestampString = "414941037.800358"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "750"
-            endingLineNumber = "750"
-            landmarkName = "-executeFetchRequest:withContext:error:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -741,38 +661,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pods/AFIncrementalStore/AFIncrementalStore/AFIncrementalStore.m"
-            timestampString = "415532759.465"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "909"
-            endingLineNumber = "909"
-            landmarkName = "-postPonedSaveChangeRequest:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Pods/AFIncrementalStore/AFIncrementalStore/AFIncrementalStore.m"
-            timestampString = "414941037.800358"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "487"
-            endingLineNumber = "487"
-            landmarkName = "-insertOrUpdateObjectsFromRepresentations:ofEntity:fromResponse:withContext:error:completionBlock:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "AFISProva/AFISProvaViewController.m"
             timestampString = "396869628.920103"
             startingColumnNumber = "9223372036854775807"
@@ -780,22 +668,6 @@
             startingLineNumber = "280"
             endingLineNumber = "280"
             landmarkName = "-checkIn:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Pods/AFIncrementalStore/AFIncrementalStore/AFIncrementalStore.m"
-            timestampString = "414941037.800358"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "492"
-            endingLineNumber = "492"
-            landmarkName = "-insertOrUpdateObjectsFromRepresentations:ofEntity:fromResponse:withContext:error:completionBlock:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -828,22 +700,6 @@
             startingLineNumber = "478"
             endingLineNumber = "478"
             landmarkName = "-addObjectToDeletedSection:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Pods/AFIncrementalStore/AFIncrementalStore/AFIncrementalStore.m"
-            timestampString = "414941037.800358"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "739"
-            endingLineNumber = "739"
-            landmarkName = "-executeFetchRequest:withContext:error:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1261,22 +1117,6 @@
             startingLineNumber = "368"
             endingLineNumber = "368"
             landmarkName = "-addObjectToInsertedSection:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Pods/AFIncrementalStore/AFIncrementalStore/AFIncrementalStore.m"
-            timestampString = "414941037.800358"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "712"
-            endingLineNumber = "712"
-            landmarkName = "-executeFetchRequest:withContext:error:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
