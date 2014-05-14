@@ -793,19 +793,15 @@ static NSString * TTTISO8601TimestampFromDate(NSDate *date) {
 -(NSManagedObject *)retrieveLastSyncObject {
     
     //__block NSArray * results=nil;
-    NSArray * results=nil;
+    __block NSArray * results=nil;
     NSError *__autoreleasing * error=nil;
     NSManagedObjectContext * backingContext=self.backingManagedObjectContext;
     NSManagedObjectModel *backingModel = self.backingPersistentStoreCoordinator.managedObjectModel;
 	NSFetchRequest *backingFetchRequest = [[backingModel fetchRequestTemplateForName:@"FetchDeletedLastSync"] copy];
     backingFetchRequest.resultType = NSManagedObjectResultType;
-#if 0
     [backingContext performBlockAndWait:^{
         results = [backingContext executeFetchRequest:backingFetchRequest error:error];
     }];
-#else
-    results = [backingContext executeFetchRequest:backingFetchRequest error:error];
-#endif
     return [results lastObject];
 }
 
