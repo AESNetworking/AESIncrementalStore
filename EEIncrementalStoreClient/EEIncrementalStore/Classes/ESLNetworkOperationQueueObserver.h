@@ -7,6 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+
+extern NSString * kESLNetworkOperationQueueObserverDisplayLoadingViewUINotification;
+extern NSString * kESLNetworkOperationQueueObserverDismissLoadingViewUINotification;
+
 @interface ESLNetworkOperationQueueObserver : NSObject
 
 + (ESLNetworkOperationQueueObserver*)sharedInstance;

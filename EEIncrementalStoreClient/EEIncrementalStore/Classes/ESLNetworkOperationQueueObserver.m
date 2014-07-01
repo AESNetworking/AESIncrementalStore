@@ -7,7 +7,7 @@
 //
 
 #import "ESLNetworkOperationQueueObserver.h"
-#import "EEIncrementalStoreRESTClient.h"
+#import "AESRESTClient.h"
 #import "ESLPersistenceManager.h"
 #import "ESLLoadingView.h"
 
@@ -26,8 +26,8 @@
         sharedInstance.networkOff=NO;
         sharedInstance.waitForOperationQueueEmpty=NO;
         ESLPersistenceManager * persistenceManager=[ESLPersistenceManager sharedInstance];
-        EEIncrementalStore * incrementalStore=[persistenceManager incrementalStore];
-        EEIncrementalStoreRESTClient * restClient=(EEIncrementalStoreRESTClient *)[incrementalStore HTTPClient];
+        AESIncrementalStore * incrementalStore=[persistenceManager incrementalStore];
+        AESRESTClient * restClient=(AESRESTClient *)[incrementalStore HTTPClient];
         [restClient addObserver:sharedInstance forKeyPath:@"operationQueue.suspended" options:0 context:NULL];
         [persistenceManager addObserver:sharedInstance forKeyPath:@"offlineOperationQueue.operationCount" options:0 context:NULL];
 
@@ -53,10 +53,7 @@
         } else if ((suspended==FALSE) && (self.networkOff==YES)) {
             NSUInteger nbrOperation=[[persistenceManager valueForKeyPath:@"offlineOperationQueue.operationCount"] unsignedIntegerValue];
             if (nbrOperation>0) {
-                // retrieve root Controller
-                UITabBarController * tabCtrl=(UITabBarController *)[[[[UIApplication sharedApplication] delegate] window] rootViewController];
-                [[ESLLoadingView sharedESLLoadingView] setMessageString:@"Attendere prego, eseguo operazioni in coda..."];
-                [[ESLLoadingView sharedESLLoadingView] show:tabCtrl];
+                [self sendNotification:kESLNetworkOperationQueueObserverDisplayLoadingViewUINotification];
                 self.waitForOperationQueueEmpty=YES;
             }
             [persistenceManager.offlineOperationQueue setSuspended:suspended];
@@ -67,20 +64,30 @@
         
         NSUInteger nbrOperation=[[object valueForKeyPath:@"offlineOperationQueue.operationCount"] unsignedIntegerValue];
         if (nbrOperation==0) {
-            [[ESLLoadingView sharedESLLoadingView] dismiss];
-            [[ESLLoadingView sharedESLLoadingView] setMessageString:@"Attendere prego..."];
+            [self sendNotification:kESLNetworkOperationQueueObserverDismissLoadingViewUINotification];
             self.waitForOperationQueueEmpty=NO;
         }
     }
     
 }
 
+-(void)sendNotification:(NSString *)notificationName {
+
+    dispatch_async(dispatch_get_main_queue(), ^ {
+        [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
+    });
+}
+
 -(void)dealloc {
     ESLPersistenceManager * persistenceManager=[ESLPersistenceManager sharedInstance];
-    EEIncrementalStore * incrementalStore=[persistenceManager incrementalStore];
-    EEIncrementalStoreRESTClient * restClient=(EEIncrementalStoreRESTClient *)[incrementalStore HTTPClient];
+    AESIncrementalStore * incrementalStore=[persistenceManager incrementalStore];
+    AESRESTClient * restClient=(AESRESTClient *)[incrementalStore HTTPClient];
     [restClient removeObserver:self forKeyPath:@"operationQueue.suspended"];
     [persistenceManager removeObserver:self forKeyPath:@"offlineOperationQueue.operationCount"];
 }
+
+NSString * kESLNetworkOperationQueueObserverDisplayLoadingViewUINotification=@"ESLNetworkOperationQueueObserverDisplayLoadingViewUINotification";
+NSString * kESLNetworkOperationQueueObserverDismissLoadingViewUINotification=@"ESLNetworkOperationQueueObserverDismissLoadingViewUINotification";
+
 
 @end
