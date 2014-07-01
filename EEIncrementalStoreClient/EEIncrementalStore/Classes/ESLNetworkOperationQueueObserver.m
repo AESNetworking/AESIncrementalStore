@@ -7,7 +7,7 @@
 //
 
 #import "ESLNetworkOperationQueueObserver.h"
-#import "AESRESTClient.h"
+#import "EEIncrementalStoreRESTClient.h"
 #import "ESLPersistenceManager.h"
 #import "ESLLoadingView.h"
 
@@ -26,8 +26,8 @@
         sharedInstance.networkOff=NO;
         sharedInstance.waitForOperationQueueEmpty=NO;
         ESLPersistenceManager * persistenceManager=[ESLPersistenceManager sharedInstance];
-        AESIncrementalStore * incrementalStore=[persistenceManager incrementalStore];
-        AESRESTClient * restClient=(AESRESTClient *)[incrementalStore HTTPClient];
+        EEIncrementalStore * incrementalStore=[persistenceManager incrementalStore];
+        EEIncrementalStoreRESTClient * restClient=(EEIncrementalStoreRESTClient *)[incrementalStore HTTPClient];
         [restClient addObserver:sharedInstance forKeyPath:@"operationQueue.suspended" options:0 context:NULL];
         [persistenceManager addObserver:sharedInstance forKeyPath:@"offlineOperationQueue.operationCount" options:0 context:NULL];
 
@@ -80,8 +80,8 @@
 
 -(void)dealloc {
     ESLPersistenceManager * persistenceManager=[ESLPersistenceManager sharedInstance];
-    AESIncrementalStore * incrementalStore=[persistenceManager incrementalStore];
-    AESRESTClient * restClient=(AESRESTClient *)[incrementalStore HTTPClient];
+    EEIncrementalStore * incrementalStore=[persistenceManager incrementalStore];
+    EEIncrementalStoreRESTClient * restClient=(EEIncrementalStoreRESTClient *)[incrementalStore HTTPClient];
     [restClient removeObserver:self forKeyPath:@"operationQueue.suspended"];
     [persistenceManager removeObserver:self forKeyPath:@"offlineOperationQueue.operationCount"];
 }

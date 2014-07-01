@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>D4421FE1-82B9-41E7-A4C1-A486FEB8EBE5</string>
+	<string>B772731D-8F83-479B-A86A-A487958B2CDE</string>
 	<key>IDESourceControlProjectName</key>
-	<string>EEIncrementalStoreClient</string>
+	<string>EEIncrementalStore</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>47E1A94F-C199-49FF-B6FA-C5385B77B804</key>
+		<key>D65A59F7-51B8-41AA-A926-0A26748AD8ED</key>
 		<string>https://github.com/EENetworking/EEIncrementalStore.git/</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>EEIncrementalStoreClient/EEIncrementalStoreClient.xcworkspace</string>
+	<string>EEIncrementalStoreClient/EEIncrementalStore.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>47E1A94F-C199-49FF-B6FA-C5385B77B804</key>
-		<string>../..</string>
+		<key>D65A59F7-51B8-41AA-A926-0A26748AD8ED</key>
+		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/EENetworking/EEIncrementalStore.git/</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>47E1A94F-C199-49FF-B6FA-C5385B77B804</string>
+	<string>D65A59F7-51B8-41AA-A926-0A26748AD8ED</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>47E1A94F-C199-49FF-B6FA-C5385B77B804</string>
+			<string>D65A59F7-51B8-41AA-A926-0A26748AD8ED</string>
 			<key>IDESourceControlWCCName</key>
 			<string>EEIncrementalStore</string>
 		</dict>

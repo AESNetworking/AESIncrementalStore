@@ -16,6 +16,9 @@
 @property (readonly) NSString * username;
 @property (readonly) NSString * serverPassword;
 @property (readonly) NSString * validationURL;
+@property (readonly) NSNumber * useClientCert;
 @property (readonly) NSNumber * eraseCoreDataDB;
+@property (readonly) NSString * codaz;
+@property (readonly) NSString * rangeValiditaNegoziExtraChecklist;
 
 @end

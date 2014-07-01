@@ -44,6 +44,14 @@
 		E1B77FD818C499FC008F01B0 /* ESLIdentityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B77FD418C499FC008F01B0 /* ESLIdentityManager.m */; };
 		E1B77FD918C499FC008F01B0 /* ESLIdentityPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B77FD618C499FC008F01B0 /* ESLIdentityPayload.m */; };
 		E1B77FDA18C499FC008F01B0 /* ESLIdentityPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B77FD618C499FC008F01B0 /* ESLIdentityPayload.m */; };
+		E1D17FF91962BC4A00B2FAC7 /* ESLNetworkOperationQueueObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D17FF61962BC4A00B2FAC7 /* ESLNetworkOperationQueueObserver.m */; };
+		E1D17FFA1962BC4A00B2FAC7 /* ESLNetworkOperationQueueObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D17FF61962BC4A00B2FAC7 /* ESLNetworkOperationQueueObserver.m */; };
+		E1D17FFB1962BC4A00B2FAC7 /* ESLOfflineAlignmentLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D17FF81962BC4A00B2FAC7 /* ESLOfflineAlignmentLoadingView.m */; };
+		E1D17FFC1962BC4A00B2FAC7 /* ESLOfflineAlignmentLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D17FF81962BC4A00B2FAC7 /* ESLOfflineAlignmentLoadingView.m */; };
+		E1D180001962C06200B2FAC7 /* Root.plist in Resources */ = {isa = PBXBuildFile; fileRef = E1D17FFF1962C06200B2FAC7 /* Root.plist */; };
+		E1D180011962C06200B2FAC7 /* Root.plist in Resources */ = {isa = PBXBuildFile; fileRef = E1D17FFF1962C06200B2FAC7 /* Root.plist */; };
+		E1D180031962C06C00B2FAC7 /* Root.plist in Resources */ = {isa = PBXBuildFile; fileRef = E1D180021962C06C00B2FAC7 /* Root.plist */; };
+		E1D180041962C06C00B2FAC7 /* Root.plist in Resources */ = {isa = PBXBuildFile; fileRef = E1D180021962C06C00B2FAC7 /* Root.plist */; };
 		E1E0E465189A63DF000250C9 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1E0E464189A63DF000250C9 /* CFNetwork.framework */; };
 		E1E30A30184C946E007004B6 /* ESLPersistenceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E30A2D184C946E007004B6 /* ESLPersistenceManager.m */; };
 		E1E30A31184C946E007004B6 /* ESLPersistenceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E30A2D184C946E007004B6 /* ESLPersistenceManager.m */; };
@@ -51,8 +59,6 @@
 		E1E30A33184C946E007004B6 /* NSManagedObject+DataMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E30A2F184C946E007004B6 /* NSManagedObject+DataMapper.m */; };
 		E1F509ED1908F53A00B523F4 /* ESLNetworkAvailability.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F509EA1908F53A00B523F4 /* ESLNetworkAvailability.m */; };
 		E1F509EE1908F53A00B523F4 /* ESLNetworkAvailability.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F509EA1908F53A00B523F4 /* ESLNetworkAvailability.m */; };
-		E1F509EF1908F53A00B523F4 /* ESLNetworkOperationQueueObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F509EC1908F53A00B523F4 /* ESLNetworkOperationQueueObserver.m */; };
-		E1F509F01908F53A00B523F4 /* ESLNetworkOperationQueueObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F509EC1908F53A00B523F4 /* ESLNetworkOperationQueueObserver.m */; };
 		E1F509F31908F61700B523F4 /* NSManagedObjectContext+saveContext.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F509F21908F61700B523F4 /* NSManagedObjectContext+saveContext.m */; };
 		E1F509F41908F61700B523F4 /* NSManagedObjectContext+saveContext.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F509F21908F61700B523F4 /* NSManagedObjectContext+saveContext.m */; };
 		E1F509F71908F91E00B523F4 /* ESLLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F509F61908F91E00B523F4 /* ESLLoadingView.m */; };
@@ -111,6 +117,12 @@
 		E1B77FD418C499FC008F01B0 /* ESLIdentityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESLIdentityManager.m; sourceTree = "<group>"; };
 		E1B77FD518C499FC008F01B0 /* ESLIdentityPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESLIdentityPayload.h; sourceTree = "<group>"; };
 		E1B77FD618C499FC008F01B0 /* ESLIdentityPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESLIdentityPayload.m; sourceTree = "<group>"; };
+		E1D17FF51962BC4A00B2FAC7 /* ESLNetworkOperationQueueObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESLNetworkOperationQueueObserver.h; sourceTree = "<group>"; };
+		E1D17FF61962BC4A00B2FAC7 /* ESLNetworkOperationQueueObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESLNetworkOperationQueueObserver.m; sourceTree = "<group>"; };
+		E1D17FF71962BC4A00B2FAC7 /* ESLOfflineAlignmentLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESLOfflineAlignmentLoadingView.h; sourceTree = "<group>"; };
+		E1D17FF81962BC4A00B2FAC7 /* ESLOfflineAlignmentLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESLOfflineAlignmentLoadingView.m; sourceTree = "<group>"; };
+		E1D17FFF1962C06200B2FAC7 /* Root.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Root.plist; sourceTree = "<group>"; };
+		E1D180021962C06C00B2FAC7 /* Root.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Root.plist; sourceTree = "<group>"; };
 		E1E0E464189A63DF000250C9 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		E1E30A2C184C946E007004B6 /* ESLPersistenceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESLPersistenceManager.h; sourceTree = "<group>"; };
 		E1E30A2D184C946E007004B6 /* ESLPersistenceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESLPersistenceManager.m; sourceTree = "<group>"; };
@@ -119,8 +131,6 @@
 		E1E30A34184C99A4007004B6 /* ESLUpdatableModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESLUpdatableModel.h; sourceTree = "<group>"; };
 		E1F509E91908F53A00B523F4 /* ESLNetworkAvailability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESLNetworkAvailability.h; sourceTree = "<group>"; };
 		E1F509EA1908F53A00B523F4 /* ESLNetworkAvailability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESLNetworkAvailability.m; sourceTree = "<group>"; };
-		E1F509EB1908F53A00B523F4 /* ESLNetworkOperationQueueObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESLNetworkOperationQueueObserver.h; sourceTree = "<group>"; };
-		E1F509EC1908F53A00B523F4 /* ESLNetworkOperationQueueObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESLNetworkOperationQueueObserver.m; sourceTree = "<group>"; };
 		E1F509F11908F61700B523F4 /* NSManagedObjectContext+saveContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+saveContext.h"; sourceTree = "<group>"; };
 		E1F509F21908F61700B523F4 /* NSManagedObjectContext+saveContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+saveContext.m"; sourceTree = "<group>"; };
 		E1F509F51908F91E00B523F4 /* ESLLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESLLoadingView.h; sourceTree = "<group>"; };
@@ -221,6 +231,8 @@
 		E1A5FCB6177991D600455FC6 /* EEIncrementalStore */ = {
 			isa = PBXGroup;
 			children = (
+				E1D17FFE1962C00F00B2FAC7 /* Release */,
+				E1D17FFD1962BFFE00B2FAC7 /* Debug */,
 				E1B77FD218C49616008F01B0 /* Identity */,
 				E1C19B5A1844A9D30027FE85 /* EEIncrementalStoreRESTClient */,
 				E1C19B5B1844AA0E0027FE85 /* Classes */,
@@ -300,12 +312,14 @@
 		E1C19B5B1844AA0E0027FE85 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				E1F509E91908F53A00B523F4 /* ESLNetworkAvailability.h */,
-				E1F509EA1908F53A00B523F4 /* ESLNetworkAvailability.m */,
-				E1F509EB1908F53A00B523F4 /* ESLNetworkOperationQueueObserver.h */,
-				E1F509EC1908F53A00B523F4 /* ESLNetworkOperationQueueObserver.m */,
 				E1A5FCBF177991D600455FC6 /* ESLAppDelegate.h */,
 				E1A5FCC0177991D600455FC6 /* ESLAppDelegate.m */,
+				E1F509E91908F53A00B523F4 /* ESLNetworkAvailability.h */,
+				E1F509EA1908F53A00B523F4 /* ESLNetworkAvailability.m */,
+				E1D17FF51962BC4A00B2FAC7 /* ESLNetworkOperationQueueObserver.h */,
+				E1D17FF61962BC4A00B2FAC7 /* ESLNetworkOperationQueueObserver.m */,
+				E1D17FF71962BC4A00B2FAC7 /* ESLOfflineAlignmentLoadingView.h */,
+				E1D17FF81962BC4A00B2FAC7 /* ESLOfflineAlignmentLoadingView.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -330,6 +344,22 @@
 				E1B35C7D184DDD6800393AA9 /* ESLGenericFetchedTableDataSource.m */,
 			);
 			path = DataSources;
+			sourceTree = "<group>";
+		};
+		E1D17FFD1962BFFE00B2FAC7 /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				E1D17FFF1962C06200B2FAC7 /* Root.plist */,
+			);
+			path = Debug;
+			sourceTree = "<group>";
+		};
+		E1D17FFE1962C00F00B2FAC7 /* Release */ = {
+			isa = PBXGroup;
+			children = (
+				E1D180021962C06C00B2FAC7 /* Root.plist */,
+			);
+			path = Release;
 			sourceTree = "<group>";
 		};
 		E1E30A2B184C944C007004B6 /* persistence */ = {
@@ -426,9 +456,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1D180001962C06200B2FAC7 /* Root.plist in Resources */,
 				E1395D60179FCAA600E6EB9C /* Settings.bundle in Resources */,
 				E1970F0718C5D00A0001A84F /* MainStoryBoard~ipad.storyboard in Resources */,
 				E1970F0918C5D00A0001A84F /* MainStoryBoard~iphone.storyboard in Resources */,
+				E1D180031962C06C00B2FAC7 /* Root.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,9 +468,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1D180011962C06200B2FAC7 /* Root.plist in Resources */,
 				E1395D61179FCAA600E6EB9C /* Settings.bundle in Resources */,
 				E1970F0818C5D00A0001A84F /* MainStoryBoard~ipad.storyboard in Resources */,
 				E1970F0A18C5D00A0001A84F /* MainStoryBoard~iphone.storyboard in Resources */,
+				E1D180041962C06C00B2FAC7 /* Root.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,14 +531,15 @@
 				E1F509ED1908F53A00B523F4 /* ESLNetworkAvailability.m in Sources */,
 				E1B77FD918C499FC008F01B0 /* ESLIdentityPayload.m in Sources */,
 				E1A5FCBD177991D600455FC6 /* main.m in Sources */,
+				E1D17FFB1962BC4A00B2FAC7 /* ESLOfflineAlignmentLoadingView.m in Sources */,
 				E1A5FCC1177991D600455FC6 /* ESLAppDelegate.m in Sources */,
 				E1A5FD011779DAB600455FC6 /* EEIncrementalStoreRESTClient.m in Sources */,
+				E1D17FF91962BC4A00B2FAC7 /* ESLNetworkOperationQueueObserver.m in Sources */,
 				E1A5FD031779DAB600455FC6 /* EEIncrementalStore.m in Sources */,
 				E1F509F71908F91E00B523F4 /* ESLLoadingView.m in Sources */,
 				E1E30A32184C946E007004B6 /* NSManagedObject+DataMapper.m in Sources */,
 				E1B35C80184DDD6800393AA9 /* ESLGenericFetchedTableDataSource.m in Sources */,
 				E1B77FD718C499FC008F01B0 /* ESLIdentityManager.m in Sources */,
-				E1F509EF1908F53A00B523F4 /* ESLNetworkOperationQueueObserver.m in Sources */,
 				E1395D65179FCB5300E6EB9C /* ESLPreferenceManager.m in Sources */,
 				E1A5063418C4DB3900F2E8C0 /* EEIncrementalStore.xcdatamodeld in Sources */,
 				E1E30A30184C946E007004B6 /* ESLPersistenceManager.m in Sources */,
@@ -522,11 +557,12 @@
 				E1A5FD021779DAB600455FC6 /* EEIncrementalStoreRESTClient.m in Sources */,
 				E1A5FD041779DAB600455FC6 /* EEIncrementalStore.m in Sources */,
 				E1E30A33184C946E007004B6 /* NSManagedObject+DataMapper.m in Sources */,
+				E1D17FFA1962BC4A00B2FAC7 /* ESLNetworkOperationQueueObserver.m in Sources */,
+				E1D17FFC1962BC4A00B2FAC7 /* ESLOfflineAlignmentLoadingView.m in Sources */,
 				E1395D66179FCB5300E6EB9C /* ESLPreferenceManager.m in Sources */,
 				E1B77FD818C499FC008F01B0 /* ESLIdentityManager.m in Sources */,
 				E1B35C81184DDD6800393AA9 /* ESLGenericFetchedTableDataSource.m in Sources */,
 				E1F509F81908F91E00B523F4 /* ESLLoadingView.m in Sources */,
-				E1F509F01908F53A00B523F4 /* ESLNetworkOperationQueueObserver.m in Sources */,
 				E1E30A31184C946E007004B6 /* ESLPersistenceManager.m in Sources */,
 				E1A5063518C4DB3900F2E8C0 /* EEIncrementalStore.xcdatamodeld in Sources */,
 			);

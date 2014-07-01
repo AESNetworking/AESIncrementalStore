@@ -64,6 +64,19 @@ static ESLPreferenceManager *singleInstance;
     return [userDefaults objectForKey:@"it.esselunga.mobile.erasedatabutton"];
 }
 
+- (NSNumber *) useClientCert {
+    return [userDefaults objectForKey:@"it.esselunga.mobile.useClientCert"];
+}
+
+- (NSString *) codaz {
+    return [userDefaults objectForKey:@"it.esselunga.mobile.codaz"];
+}
+
+
+-(NSString *) rangeValiditaNegoziExtraChecklist {
+    return [userDefaults objectForKey:@"it.esselunga.mobile.rangenegoziextrachecklist"];
+}
+
 - (void)readDefaultValuesFromSettingsBundle
 {
     // no default values have been set, create them here based on what's in our Settings bundle info

@@ -1,17 +1,17 @@
 // EEIncrementalStoreRESTClient.m
 //
 // Copyright (c) 2012 Mattt Thompson (http://mattt.me)
-// 
+//
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -24,6 +24,7 @@
 #import "ESLPreferenceManager.h"
 #import "ESLPersistenceManager.h"
 #import "ESLIdentityManager.h"
+#import "ESLPreferenceManager.h"
 
 //#define SERVERHIBERNATE
 #ifdef SERVERHIBERNATE
@@ -65,21 +66,35 @@
         _sharedClient.deletedObjects=[NSMutableSet set];
         _sharedClient->_successRequestQueue=dispatch_queue_create("ESLSuccessRESTQueue", DISPATCH_QUEUE_SERIAL);
         _sharedClient->_failureRequestQueue=dispatch_queue_create("ESLFailureRESTQueue", DISPATCH_QUEUE_SERIAL);
+        [AFHTTPRequestOperation addAcceptableStatusCodes:[NSIndexSet indexSetWithIndex:304]]; // add 304 as not modified
         // here insert credential with certificate
-#ifndef DEBUG
-        ESLIdentityManager * identityManager=[ESLIdentityManager sharedInstance];
-        SecIdentityRef identity=[identityManager retrieveSecIdentityRefFromIdentifier:nil];
-        if (identity) {
-            SecCertificateRef certificate=[identityManager createCertificateFromIdentity:identity];
-            if (certificate) {
-                NSURLCredential * credential=[NSURLCredential
-                                          credentialWithIdentity:identity certificates:[NSArray arrayWithObject:CFBridgingRelease(certificate)]
-                                                     persistence:NSURLCredentialPersistenceNone];
-                [_sharedClient setDefaultCredential:credential];
+        NSURLCredential * credential=nil;
+        
+        ESLPreferenceManager * preferenceManager=[ESLPreferenceManager sharedInstance];
+        
+        if( [preferenceManager.useClientCert boolValue] ) {
+            ESLIdentityManager * identityManager=[ESLIdentityManager sharedInstance];
+            SecIdentityRef identity=[identityManager retrieveSecIdentityRefFromIdentifier:nil];
+            if (identity) {
+                SecCertificateRef certificate=[identityManager createCertificateFromIdentity:identity];
+                if (certificate) {
+                    credential=[NSURLCredential
+                                credentialWithIdentity:identity certificates:[NSArray arrayWithObject:CFBridgingRelease(certificate)]
+                                persistence:NSURLCredentialPersistenceNone];
+                }
             }
+        } else {
+            NSString * username=[preferenceManager username];
+            NSString * password=[preferenceManager serverPassword];
+            credential=[NSURLCredential credentialWithUser:username
+                                                  password:password
+                                               persistence:NSURLCredentialPersistenceNone];
         }
-#endif
-
+        
+        if (credential) {
+            [_sharedClient setDefaultCredential:credential];
+        }
+        
     });
     
     return _sharedClient;
@@ -90,17 +105,9 @@
     if (!self) {
         return nil;
     }
-    ESLPreferenceManager * preferenceManager=[ESLPreferenceManager sharedInstance];
-    NSString * username=[preferenceManager username];
-    NSString * password=[preferenceManager serverPassword];
-    NSURLCredential * credential=[NSURLCredential credentialWithUser:username
-                                                            password:password
-                                                         persistence:NSURLCredentialPersistenceNone];
     [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
     [self setDefaultHeader:@"Accept" value:@"application/json"];
     [self setParameterEncoding:AFJSONParameterEncoding];
-    [self setDefaultCredential:credential];
-    //[self setAuthorizationHeaderWithUsername:username password:password];
     
     NSOperationQueue __weak * operationQueue=self.operationQueue;
     [self setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
@@ -133,26 +140,14 @@
                                          ofEntity:(NSEntityDescription *)entity
                                      fromResponse:(NSHTTPURLResponse *)response
 {
-    static NSMutableArray * _candidateKeys;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _candidateKeys=[NSMutableArray array];
-        NSManagedObjectModel * model=self.mObjectModel;
-        NSString * primaryKey=nil;
-        for (NSEntityDescription *entity in model) {
-            primaryKey=[[entity userInfo] objectForKey:@"primaryKey"];
-            if (primaryKey) {
-                [_candidateKeys addObject:primaryKey];
-            }
-        }
-    });
+    NSString * primaryKey=nil;
+    primaryKey=[[entity userInfo] objectForKey:@"primaryKey"];
     
-    NSString *key = [[representation allKeys] firstObjectCommonWithArray:_candidateKeys];
-    if (key) {
-        id value = [representation valueForKey:key];
-        if (value) {
-            return [value description];
-        }
+    assert(primaryKey);
+    
+    id value = [representation valueForKey:primaryKey];
+    if (value) {
+        return [value description];
     }
     
     return nil;
@@ -173,8 +168,8 @@
 - (BOOL)shouldFetchRemoteValuesForRelationship:(NSRelationshipDescription *)relationship
                                forObjectWithID:(NSManagedObjectID *)objectID
                         inManagedObjectContext:(NSManagedObjectContext *)context {
-
-
+    
+    
     return NO;
 }
 
@@ -193,7 +188,7 @@
     NSArray * entityPropertiesKeys=[[entity propertiesByName] allKeys];
     NSDictionary * relationshipNames=[entity relationshipsByName];
     NSString * primaryKey=nil;
-
+    
     NSMutableDictionary *entityParams = [[self
                                           representationOfAttributes:[insertedObject dictionaryWithValuesForKeys:entityPropertiesKeys]
                                           ofManagedObject:insertedObject] mutableCopy];
@@ -221,10 +216,14 @@
             [entityParams setObject:relationshipObjectsJSON forKey:relationshipName];
         } else {
             id relationshipObject=VALIDDICTPROPERTY([insertedObject valueForKey:relationshipName]);
-            primaryKey=[self localResourceIdentifierForManagedObject:relationshipObject];
-            if (primaryKey) {
-                id managedObject=[relationshipObject valueForKey:primaryKey];
-                [entityParams setObject:managedObject forKey:relationshipName];
+            if ([relationshipObject isKindOfClass:[NSNull class]]) {
+                [entityParams setObject:relationshipObject forKey:relationshipName];
+            } else {
+                primaryKey=[self localResourceIdentifierForManagedObject:relationshipObject];
+                if (primaryKey) {
+                    id managedObject=[relationshipObject valueForKey:primaryKey];
+                    [entityParams setObject:managedObject forKey:relationshipName];
+                }
             }
         }
     }
@@ -239,13 +238,13 @@
     NSDictionary * relationshipNames=[[updatedObject entity] relationshipsByName];
     //NSArray * entityPropertiesKeys=[[[updatedObject entity] propertiesByName] allKeys];
     NSString * primaryKey=nil;
-
+    
     NSMutableDictionary *entityParams = [[self representationOfAttributes:[updatedObject dictionaryWithValuesForKeys:attributesKeys]
-                                                                             ofManagedObject:updatedObject] mutableCopy];
+                                                          ofManagedObject:updatedObject] mutableCopy];
     
     for (NSString * key in updatedKeys) {
         if ([attributesKeys containsObject:key]) {
-           [entityParams setObject:VALIDDICTPROPERTY([updatedObject valueForKey:key]) forKey:key];
+            [entityParams setObject:VALIDDICTPROPERTY([updatedObject valueForKey:key]) forKey:key];
         } else if ([relationshipsKeys containsObject:key]) {
             NSArray *relationshipObjects=nil;
             
@@ -260,15 +259,17 @@
                         [relationshipObjectsJSON addObject:[objectInRelationship valueForKey:primaryKey]];
                     }
                 }
-                if ([relationshipObjectsJSON count]) {
-                    [entityParams setObject:relationshipObjectsJSON forKey:key];
-                }
+                [entityParams setObject:relationshipObjectsJSON forKey:key];
             } else {
                 id relationshipObject=VALIDDICTPROPERTY([updatedObject valueForKey:key]);
-                primaryKey=[self localResourceIdentifierForManagedObject:relationshipObject];
-                if (primaryKey) {
-                    id managedObject=[relationshipObject valueForKey:primaryKey];
-                    [entityParams setObject:managedObject forKey:key];
+                if ([relationshipObject isKindOfClass:[NSNull class]]) {
+                    [entityParams setObject:relationshipObject forKey:key];
+                } else {
+                    primaryKey=[self localResourceIdentifierForManagedObject:relationshipObject];
+                    if (primaryKey) {
+                        id managedObject=[relationshipObject valueForKey:primaryKey];
+                        [entityParams setObject:managedObject forKey:key];
+                    }
                 }
             }
         }
@@ -277,7 +278,7 @@
 }
 
 -(void)beginIncrementalStoreTransaction {
-
+    
     [self.jsonRequest removeAllObjects];
     [self.insertedObjects removeAllObjects];
     [self.updatedObjects removeAllObjects];
@@ -285,14 +286,15 @@
 }
 
 -(void)endIncrementalStoreTransaction {
-
+    
+    NSManagedObjectContext * mObjectContext=[[ESLPersistenceManager sharedInstance] managedObjectContext];
+    
     if ([self.jsonRequest count]) {
         NSDictionary * localJSONRequest=[NSDictionary dictionaryWithDictionary:self.jsonRequest];
         NSSet * insertedObjects=[NSSet setWithSet:self.insertedObjects];
         NSSet * updatedObjects=[NSSet setWithSet:self.updatedObjects];
         NSSet * deletedObjects=[NSSet setWithSet:self.deletedObjects];
         NSString * baseURL=[[ESLPreferenceManager sharedInstance] serverURL];
-        NSManagedObjectContext * mObjectContext=[[ESLPersistenceManager sharedInstance] managedObjectContext];
         
         NSMutableURLRequest * urlRequest=[self requestWithMethod:@"POST" path:baseURL
                                                       parameters:localJSONRequest];
@@ -314,7 +316,7 @@
                 [[NSNotificationCenter defaultCenter]
                  postNotification:[NSNotification notificationWithName:AFIncrementalStoreSaveChangePostPoneRequestKey
                                                                 object:dict]];
-                //NSLog(@"Server committato with response code = %d\n", responseCode);
+                NSLog(@"Server committato with response code = %d\n%@", responseCode, responseObject);
             }
         } failure:^(AFHTTPRequestOperation *request, NSError *error) {
             [self.jsonRequest removeAllObjects];
@@ -333,12 +335,19 @@
         }];
         operation.successCallbackQueue=self->_successRequestQueue;
         operation.failureCallbackQueue=self->_failureRequestQueue;
+        [operation setShouldExecuteAsBackgroundTaskWithExpirationHandler:nil];
         [self enqueueHTTPRequestOperation:operation];
+    } else {
+        
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:AFIncrementalStoreContextDidSaveRemoteValues
+         object:mObjectContext userInfo:nil];
+        
     }
 }
 
 -(void)addObjectToInsertedSection:(NSManagedObject *)insertedObject {
-
+    
     id insertedSection=[self.jsonRequest objectForKey:@"insertedObjects"];
     NSString * entityName=[[insertedObject entity] name];
     NSDictionary * entityParams=[self retrieveJSONRepresentationFromManagedObject:insertedObject];
@@ -356,13 +365,13 @@
         NSArray * mutableSection=(NSArray *)insertedSection;
         __block NSMutableDictionary * findSection=nil;
         [mutableSection indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL * stop) {
-                    NSMutableDictionary * section=obj;
-                    if ([[section objectForKey:@"entityName"] isEqualToString:entityName]) {
-                        findSection=section;
-                        *stop=TRUE;
-                        return TRUE;
-                    }
-                return FALSE;
+            NSMutableDictionary * section=obj;
+            if ([[section objectForKey:@"entityName"] isEqualToString:entityName]) {
+                findSection=section;
+                *stop=TRUE;
+                return TRUE;
+            }
+            return FALSE;
         }];
         if (findSection) {
             NSMutableArray * listOfObjects=[findSection objectForKey:@"listObjects"];
@@ -480,7 +489,7 @@
 }
 
 - (NSMutableURLRequest *)requestForUpdatedObject:(NSManagedObject *)updatedObject {
-
+    
     [self addObjectToUpdatedSection:updatedObject];
     
     return nil;
@@ -492,17 +501,15 @@
     [self addObjectToDeletedSection:deletedObject];
     
     return nil;
-
+    
 }
 
 - (void) executeDeletedService: (NSNotification* )note {
-    
-    dispatch_async(self->_successRequestQueue, ^{
-        NSLog(@"****************************************************** IncrementaleStore sincronizzato, chiamo deleted");
-        NSError * error=[note.userInfo objectForKey:AFIncrementalStoreFetchSaveRequestErrorKey];
-        // eseguiamo il servizio di delete solo se il save di incremental store è andato a buon fine e error è nil
-        if (error==nil) {
-            
+    NSError * error=[note.userInfo objectForKey:AFIncrementalStoreFetchSaveRequestErrorKey];
+    // eseguiamo il servizio di delete solo se il save di incremental store è andato a buon fine e error è nil
+    if (error==nil) {
+        dispatch_async(self->_successRequestQueue, ^{
+            NSLog(@"chiamo deleted");
             NSString * baseURL=[[ESLPreferenceManager sharedInstance] serverURL];
             NSURL * urlService=[[[NSURL alloc] initWithString:baseURL] URLByAppendingPathComponent:@"deletedentities"];
             NSManagedObjectContext * context=[note.userInfo objectForKey:@"context"];
@@ -534,15 +541,33 @@
                  [NSNotification notificationWithName:ESLIncrementalStoredeletedFailFromAPIClient
                                                object:error]];
             }];
-            requestOperation.successCallbackQueue=self->_successRequestQueue;
-            requestOperation.failureCallbackQueue=self->_failureRequestQueue;
+            //requestOperation.successCallbackQueue=self->_successRequestQueue;
+            //requestOperation.failureCallbackQueue=self->_failureRequestQueue;
             [self enqueueHTTPRequestOperation:requestOperation];
-        }
-    });
+        });
+    }
+    
 }
 
 - (void)failSave:(NSNotification *)note {
     
+}
+
+- (NSMutableURLRequest *)requestWithMethod:(NSString *)method
+                                      path:(NSString *)path
+                                parameters:(NSDictionary *)parameters
+{
+    NSMutableURLRequest *request = [super requestWithMethod:method path:path parameters:parameters];
+    
+#ifdef DEBUG
+    NSString *codaz = [ESLPreferenceManager sharedInstance].codaz;
+    
+    if( codaz.length ) {
+        [request setValue:codaz forHTTPHeaderField:@"X-Codaz"];
+    }
+#endif
+    
+    return request;
 }
 
 #pragma mark -

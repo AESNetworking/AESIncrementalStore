@@ -12,15 +12,12 @@
 		25339E9FBC3944FAA83BACCF /* TTTStringTransformers.h in Headers */ = {isa = PBXBuildFile; fileRef = 11109BB995D345899E57680E /* TTTStringTransformers.h */; };
 		2C3BAC4DD21E4899813A154E /* AFURLConnectionOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = ACE4DF9A15D34E60B9D4BD19 /* AFURLConnectionOperation.h */; };
 		2F6FB5370D8840E1856B23E5 /* NSValueTransformer+TransformerKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 8E05A4960E5549BC95E1298A /* NSValueTransformer+TransformerKit.h */; };
-		33644296D9324100BB26E9BA /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = AD907E7CF97B403CBF55292A /* AFHTTPClient.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0"; }; };
 		3866AA36D07C477F81B7DD39 /* AFPropertyListRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2129AA49A0AF416C9875013A /* AFPropertyListRequestOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0"; }; };
 		39013128683D40C38A395C12 /* NSString+InflectorKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 276D749C1757404DA41F1C3A /* NSString+InflectorKit.h */; };
-		42DAEBE39B77461D8ED7A129 /* AFRESTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = A0BBF68A390446E28A174E16 /* AFRESTClient.h */; };
 		4401B478EA2F4FCFAB78C62F /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B76CB2FEDBF48AA9D6A51E6 /* AFHTTPRequestOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0"; }; };
 		4565E6768B544959B7EC7F4A /* AFImageRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = E574FA61EE5D49D380C4ECD5 /* AFImageRequestOperation.h */; };
 		46E37C34C4734611A5B6D64F /* AFJSONRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5FC65C9F14DA40DCA10D5FAA /* AFJSONRequestOperation.h */; };
 		57EB3D18C6624E99B2428B73 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59D09632E22B4445A6556027 /* Foundation.framework */; };
-		6137E0A10DE64D21B79B16C2 /* AFRESTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C51EC77FC4C426F89B0742A /* AFRESTClient.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0"; }; };
 		64C88F79E9064411AB5B5C25 /* UIImageView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = AB096F9DD38E4CEC8D8803C5 /* UIImageView+AFNetworking.h */; };
 		67733468F7104EADBF050C38 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5241720E06644A3CBAC5A22A /* AFXMLRequestOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0"; }; };
 		89907433BACD4D438398AB15 /* NSValueTransformer+TransformerKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D0C74C6CCDD42418557F234 /* NSValueTransformer+TransformerKit.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0"; }; };
@@ -36,11 +33,16 @@
 		CDF8853EE6904285AE327F52 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EEFC4C0CFFE549BDB9B5DCAE /* AFNetworkActivityIndicatorManager.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0"; }; };
 		D3CD2667D789445E97E14E05 /* AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = EEADC2AA452A4EAD9ED92A61 /* AFNetworking.h */; };
 		D94839411FD54D968D906216 /* TTTImageTransformers.h in Headers */ = {isa = PBXBuildFile; fileRef = 70599F520E3B447C8694666A /* TTTImageTransformers.h */; };
-		E166799D18BB47C100E8388F /* AFIncrementalStore.h in Headers */ = {isa = PBXBuildFile; fileRef = E166799B18BB47C100E8388F /* AFIncrementalStore.h */; };
-		E166799E18BB47C100E8388F /* AFIncrementalStore.m in Sources */ = {isa = PBXBuildFile; fileRef = E166799C18BB47C100E8388F /* AFIncrementalStore.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0"; }; };
 		E16679A518BB49DD00E8388F /* NSManagedObject+EEIncrementalStore.h in Headers */ = {isa = PBXBuildFile; fileRef = E16679A318BB49DD00E8388F /* NSManagedObject+EEIncrementalStore.h */; };
 		E16679A618BB49DD00E8388F /* NSManagedObject+EEIncrementalStore.m in Sources */ = {isa = PBXBuildFile; fileRef = E16679A418BB49DD00E8388F /* NSManagedObject+EEIncrementalStore.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0"; }; };
-		E2B43C75CA904B808AE06D4B /* AFHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BD17F357B1541F181F73B2A /* AFHTTPClient.h */; };
+		E1D180091962C12D00B2FAC7 /* AFIncrementalStore.h in Headers */ = {isa = PBXBuildFile; fileRef = E1D180051962C12D00B2FAC7 /* AFIncrementalStore.h */; };
+		E1D1800A1962C12D00B2FAC7 /* AFIncrementalStore.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D180061962C12D00B2FAC7 /* AFIncrementalStore.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0"; }; };
+		E1D1800B1962C12D00B2FAC7 /* AFRESTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = E1D180071962C12D00B2FAC7 /* AFRESTClient.h */; };
+		E1D1800C1962C12D00B2FAC7 /* AFRESTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D180081962C12D00B2FAC7 /* AFRESTClient.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0"; }; };
+		E1D1800F1962C14600B2FAC7 /* AFHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = E1D1800D1962C14600B2FAC7 /* AFHTTPClient.h */; };
+		E1D180101962C14600B2FAC7 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D1800E1962C14600B2FAC7 /* AFHTTPClient.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0"; }; };
+		E1D180141962C22700B2FAC7 /* Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = E1D180121962C22700B2FAC7 /* Utils.h */; };
+		E1D180151962C22700B2FAC7 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D180131962C22700B2FAC7 /* Utils.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0"; }; };
 		E985067C68A649EFA513812D /* AFPropertyListRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E8AC143BEB14904A39985A9 /* AFPropertyListRequestOperation.h */; };
 		EC5DE89612F948D294DC3027 /* TTTStringInflector.h in Headers */ = {isa = PBXBuildFile; fileRef = 4540339166DF47A4B9D2840A /* TTTStringInflector.h */; };
 		ED45A5F8E06C40B4ADBC27D1 /* TTTStringTransformers.m in Sources */ = {isa = PBXBuildFile; fileRef = C49C639EC2A54FBBBDF8E083 /* TTTStringTransformers.m */; settings = {COMPILER_FLAGS = "-fobjc-arc -DOS_OBJECT_USE_OBJC=0"; }; };
@@ -54,7 +56,6 @@
 		0E687188D21F4CDD8586F045 /* TransformerKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TransformerKit.h; path = TransformerKit/TransformerKit/TransformerKit.h; sourceTree = SOURCE_ROOT; };
 		11109BB995D345899E57680E /* TTTStringTransformers.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TTTStringTransformers.h; path = TransformerKit/TransformerKit/TTTStringTransformers.h; sourceTree = SOURCE_ROOT; };
 		18371651030E4A7093E0871D /* AFImageRequestOperation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFImageRequestOperation.m; path = AFNetworking/AFNetworking/AFImageRequestOperation.m; sourceTree = SOURCE_ROOT; };
-		1C51EC77FC4C426F89B0742A /* AFRESTClient.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFRESTClient.m; path = AFIncrementalStore/AFIncrementalStore/AFRESTClient.m; sourceTree = SOURCE_ROOT; };
 		2129AA49A0AF416C9875013A /* AFPropertyListRequestOperation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFPropertyListRequestOperation.m; path = AFNetworking/AFNetworking/AFPropertyListRequestOperation.m; sourceTree = SOURCE_ROOT; };
 		276D749C1757404DA41F1C3A /* NSString+InflectorKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSString+InflectorKit.h"; path = "InflectorKit/InflectorKit/NSString+InflectorKit.h"; sourceTree = SOURCE_ROOT; };
 		2E8AC143BEB14904A39985A9 /* AFPropertyListRequestOperation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFPropertyListRequestOperation.h; path = AFNetworking/AFNetworking/AFPropertyListRequestOperation.h; sourceTree = SOURCE_ROOT; };
@@ -77,9 +78,7 @@
 		8E05A4960E5549BC95E1298A /* NSValueTransformer+TransformerKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSValueTransformer+TransformerKit.h"; path = "TransformerKit/TransformerKit/NSValueTransformer+TransformerKit.h"; sourceTree = SOURCE_ROOT; };
 		9116139B4921469BB28C92DB /* CoreData.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		92C2DEA6D2CC42569FC2B9F5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.xcconfig; sourceTree = SOURCE_ROOT; };
-		9BD17F357B1541F181F73B2A /* AFHTTPClient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFHTTPClient.h; path = AFNetworking/AFNetworking/AFHTTPClient.h; sourceTree = SOURCE_ROOT; };
 		9D0C74C6CCDD42418557F234 /* NSValueTransformer+TransformerKit.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSValueTransformer+TransformerKit.m"; path = "TransformerKit/TransformerKit/NSValueTransformer+TransformerKit.m"; sourceTree = SOURCE_ROOT; };
-		A0BBF68A390446E28A174E16 /* AFRESTClient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFRESTClient.h; path = AFIncrementalStore/AFIncrementalStore/AFRESTClient.h; sourceTree = SOURCE_ROOT; };
 		A237A0C1131746DE8A0580ED /* TTTDateTransformers.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TTTDateTransformers.m; path = TransformerKit/TransformerKit/TTTDateTransformers.m; sourceTree = SOURCE_ROOT; };
 		A34AA797771D4919ABC02A4C /* Pods-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-resources.sh"; sourceTree = SOURCE_ROOT; };
 		A3956B5A26664CEA9C6EC039 /* SystemConfiguration.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
@@ -87,16 +86,21 @@
 		AB096F9DD38E4CEC8D8803C5 /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImageView+AFNetworking.h"; path = "AFNetworking/AFNetworking/UIImageView+AFNetworking.h"; sourceTree = SOURCE_ROOT; };
 		AC9547F910724259B3CB8EA0 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFNetworkActivityIndicatorManager.h; path = AFNetworking/AFNetworking/AFNetworkActivityIndicatorManager.h; sourceTree = SOURCE_ROOT; };
 		ACE4DF9A15D34E60B9D4BD19 /* AFURLConnectionOperation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFURLConnectionOperation.h; path = AFNetworking/AFNetworking/AFURLConnectionOperation.h; sourceTree = SOURCE_ROOT; };
-		AD907E7CF97B403CBF55292A /* AFHTTPClient.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFHTTPClient.m; path = AFNetworking/AFNetworking/AFHTTPClient.m; sourceTree = SOURCE_ROOT; };
 		AF66AC12239E4DC3A35DE30B /* Pods-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-dummy.m"; sourceTree = SOURCE_ROOT; };
 		C399A61315E944849F9DF6DE /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-acknowledgements.plist"; sourceTree = SOURCE_ROOT; };
 		C49C639EC2A54FBBBDF8E083 /* TTTStringTransformers.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TTTStringTransformers.m; path = TransformerKit/TransformerKit/TTTStringTransformers.m; sourceTree = SOURCE_ROOT; };
 		DB2C593C60C44D1A8D89E7C4 /* Pods-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-acknowledgements.markdown"; sourceTree = SOURCE_ROOT; };
 		DED2249245B84F709E1EF37D /* Security.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
-		E166799B18BB47C100E8388F /* AFIncrementalStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFIncrementalStore.h; path = AFIncrementalStore/AFIncrementalStore/AFIncrementalStore.h; sourceTree = "<group>"; };
-		E166799C18BB47C100E8388F /* AFIncrementalStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFIncrementalStore.m; path = AFIncrementalStore/AFIncrementalStore/AFIncrementalStore.m; sourceTree = "<group>"; };
 		E16679A318BB49DD00E8388F /* NSManagedObject+EEIncrementalStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSManagedObject+EEIncrementalStore.h"; path = "AFIncrementalStore/AFIncrementalStore/NSManagedObject+EEIncrementalStore.h"; sourceTree = "<group>"; };
 		E16679A418BB49DD00E8388F /* NSManagedObject+EEIncrementalStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSManagedObject+EEIncrementalStore.m"; path = "AFIncrementalStore/AFIncrementalStore/NSManagedObject+EEIncrementalStore.m"; sourceTree = "<group>"; };
+		E1D180051962C12D00B2FAC7 /* AFIncrementalStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFIncrementalStore.h; path = AFIncrementalStore/AFIncrementalStore/AFIncrementalStore.h; sourceTree = "<group>"; };
+		E1D180061962C12D00B2FAC7 /* AFIncrementalStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFIncrementalStore.m; path = AFIncrementalStore/AFIncrementalStore/AFIncrementalStore.m; sourceTree = "<group>"; };
+		E1D180071962C12D00B2FAC7 /* AFRESTClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFRESTClient.h; path = AFIncrementalStore/AFIncrementalStore/AFRESTClient.h; sourceTree = "<group>"; };
+		E1D180081962C12D00B2FAC7 /* AFRESTClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFRESTClient.m; path = AFIncrementalStore/AFIncrementalStore/AFRESTClient.m; sourceTree = "<group>"; };
+		E1D1800D1962C14600B2FAC7 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFHTTPClient.h; path = AFNetworking/AFNetworking/AFHTTPClient.h; sourceTree = "<group>"; };
+		E1D1800E1962C14600B2FAC7 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFHTTPClient.m; path = AFNetworking/AFNetworking/AFHTTPClient.m; sourceTree = "<group>"; };
+		E1D180121962C22700B2FAC7 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		E1D180131962C22700B2FAC7 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 		E574FA61EE5D49D380C4ECD5 /* AFImageRequestOperation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFImageRequestOperation.h; path = AFNetworking/AFNetworking/AFImageRequestOperation.h; sourceTree = SOURCE_ROOT; };
 		E9B64AEC477D4184BA3C79D8 /* TTTStringInflector.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TTTStringInflector.m; path = InflectorKit/InflectorKit/TTTStringInflector.m; sourceTree = SOURCE_ROOT; };
 		EB043A5AD9D6457FA6A808E8 /* TTTDateTransformers.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = TTTDateTransformers.h; path = TransformerKit/TransformerKit/TTTDateTransformers.h; sourceTree = SOURCE_ROOT; };
@@ -120,8 +124,8 @@
 		1F8270F2E3B84CA2B24D8ABE /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
-				9BD17F357B1541F181F73B2A /* AFHTTPClient.h */,
-				AD907E7CF97B403CBF55292A /* AFHTTPClient.m */,
+				E1D1800D1962C14600B2FAC7 /* AFHTTPClient.h */,
+				E1D1800E1962C14600B2FAC7 /* AFHTTPClient.m */,
 				70A314285C0C4B2A8E32C99E /* AFHTTPRequestOperation.h */,
 				6B76CB2FEDBF48AA9D6A51E6 /* AFHTTPRequestOperation.m */,
 				E574FA61EE5D49D380C4ECD5 /* AFImageRequestOperation.h */,
@@ -173,6 +177,7 @@
 		8AACEFE4FFB54EE48F14C454 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				E1D180111962C20C00B2FAC7 /* Utils */,
 				96E7CC13F1F04588A5369FCC /* EEIncrementalStore */,
 				1F8270F2E3B84CA2B24D8ABE /* AFNetworking */,
 				97800E176DBF4CAEB56B0F02 /* InflectorKit */,
@@ -218,10 +223,10 @@
 			children = (
 				E16679A318BB49DD00E8388F /* NSManagedObject+EEIncrementalStore.h */,
 				E16679A418BB49DD00E8388F /* NSManagedObject+EEIncrementalStore.m */,
-				E166799B18BB47C100E8388F /* AFIncrementalStore.h */,
-				E166799C18BB47C100E8388F /* AFIncrementalStore.m */,
-				A0BBF68A390446E28A174E16 /* AFRESTClient.h */,
-				1C51EC77FC4C426F89B0742A /* AFRESTClient.m */,
+				E1D180051962C12D00B2FAC7 /* AFIncrementalStore.h */,
+				E1D180061962C12D00B2FAC7 /* AFIncrementalStore.m */,
+				E1D180071962C12D00B2FAC7 /* AFRESTClient.h */,
+				E1D180081962C12D00B2FAC7 /* AFRESTClient.m */,
 			);
 			name = EEIncrementalStore;
 			sourceTree = "<group>";
@@ -235,6 +240,15 @@
 				E9B64AEC477D4184BA3C79D8 /* TTTStringInflector.m */,
 			);
 			name = InflectorKit;
+			sourceTree = "<group>";
+		};
+		E1D180111962C20C00B2FAC7 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				E1D180121962C22700B2FAC7 /* Utils.h */,
+				E1D180131962C22700B2FAC7 /* Utils.m */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		FA1B1EEA901C4771942F090F = {
@@ -255,10 +269,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E166799D18BB47C100E8388F /* AFIncrementalStore.h in Headers */,
-				42DAEBE39B77461D8ED7A129 /* AFRESTClient.h in Headers */,
+				E1D1800B1962C12D00B2FAC7 /* AFRESTClient.h in Headers */,
 				E16679A518BB49DD00E8388F /* NSManagedObject+EEIncrementalStore.h in Headers */,
-				E2B43C75CA904B808AE06D4B /* AFHTTPClient.h in Headers */,
 				BC14C18972D64456B357842C /* AFHTTPRequestOperation.h in Headers */,
 				4565E6768B544959B7EC7F4A /* AFImageRequestOperation.h in Headers */,
 				46E37C34C4734611A5B6D64F /* AFJSONRequestOperation.h in Headers */,
@@ -267,6 +279,7 @@
 				E985067C68A649EFA513812D /* AFPropertyListRequestOperation.h in Headers */,
 				2C3BAC4DD21E4899813A154E /* AFURLConnectionOperation.h in Headers */,
 				9898BBCA249A4D47B9AB63CC /* AFXMLRequestOperation.h in Headers */,
+				E1D1800F1962C14600B2FAC7 /* AFHTTPClient.h in Headers */,
 				64C88F79E9064411AB5B5C25 /* UIImageView+AFNetworking.h in Headers */,
 				39013128683D40C38A395C12 /* NSString+InflectorKit.h in Headers */,
 				EC5DE89612F948D294DC3027 /* TTTStringInflector.h in Headers */,
@@ -274,6 +287,8 @@
 				1B4BA7BA58C945DAB62100BD /* TransformerKit.h in Headers */,
 				BDCF2B3824A44C7AA76231A8 /* TTTDateTransformers.h in Headers */,
 				D94839411FD54D968D906216 /* TTTImageTransformers.h in Headers */,
+				E1D180141962C22700B2FAC7 /* Utils.h in Headers */,
+				E1D180091962C12D00B2FAC7 /* AFIncrementalStore.h in Headers */,
 				25339E9FBC3944FAA83BACCF /* TTTStringTransformers.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -328,25 +343,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6137E0A10DE64D21B79B16C2 /* AFRESTClient.m in Sources */,
-				33644296D9324100BB26E9BA /* AFHTTPClient.m in Sources */,
 				4401B478EA2F4FCFAB78C62F /* AFHTTPRequestOperation.m in Sources */,
-				E166799E18BB47C100E8388F /* AFIncrementalStore.m in Sources */,
 				CCB614983FF84C2BB58CBE8C /* AFImageRequestOperation.m in Sources */,
 				F59E59DC155E44D39E84FF9D /* AFJSONRequestOperation.m in Sources */,
+				E1D180151962C22700B2FAC7 /* Utils.m in Sources */,
 				CDF8853EE6904285AE327F52 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				3866AA36D07C477F81B7DD39 /* AFPropertyListRequestOperation.m in Sources */,
+				E1D1800C1962C12D00B2FAC7 /* AFRESTClient.m in Sources */,
 				8F1B5ACE8A75496AA69DCAC8 /* AFURLConnectionOperation.m in Sources */,
 				67733468F7104EADBF050C38 /* AFXMLRequestOperation.m in Sources */,
 				A37E791AA7F24F7FA35E6E48 /* UIImageView+AFNetworking.m in Sources */,
 				FE772FF7626B43559F4F7E6D /* NSString+InflectorKit.m in Sources */,
 				1DAE4D9430F54D2E8C0E038B /* TTTStringInflector.m in Sources */,
+				E1D1800A1962C12D00B2FAC7 /* AFIncrementalStore.m in Sources */,
 				89907433BACD4D438398AB15 /* NSValueTransformer+TransformerKit.m in Sources */,
 				ADF1AB4A4D834FD19ECE60F1 /* TTTDateTransformers.m in Sources */,
 				E16679A618BB49DD00E8388F /* NSManagedObject+EEIncrementalStore.m in Sources */,
 				AF89A8B99D8E40549B81A807 /* TTTImageTransformers.m in Sources */,
 				ED45A5F8E06C40B4ADBC27D1 /* TTTStringTransformers.m in Sources */,
 				8EC2238E2607477EAEAB2A7E /* Pods-dummy.m in Sources */,
+				E1D180101962C14600B2FAC7 /* AFHTTPClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
