@@ -22,9 +22,7 @@
 
 #import "EEIncrementalStore.h"
 #import "EEIncrementalStoreRESTClient.h"
-#import <AFIncrementalStore/AFIncrementalStore.h>
-#import <AFIncrementalStore/AFRESTClient.h>
-#import "UIApplicationDelegateCoreDataProtocol.h"
+#import "CoreDataIncrementalStoreProtocol.h"
 #import <objc/runtime.h>
 #import "ESLPersistenceManager.h"
 
