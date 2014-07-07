@@ -21,7 +21,7 @@
 // THE SOFTWARE.
 
 #import <SystemConfiguration/SystemConfiguration.h>
-#import <AFIncrementalStore/AFRESTClient.h>
+#import "AFRESTClient.h"
 #import "EEIncrementalStore.h"
 
 extern NSString * AFISClientForceSyncNotification;
