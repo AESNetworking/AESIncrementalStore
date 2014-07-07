@@ -13,7 +13,7 @@ static NSInteger const CellOffset = 1000000;
 
 @class ESLPersistenceManager;
 
-@protocol ESLGenericFetchedTableDataSourceProtocol
+@protocol ESLGenericFetchedTableDataSourceProtocol<NSObject>
 
 @optional
 -(NSFetchedResultsController *) createFetchedResultControllerWithTemplate: (ESLPersistenceManager *)serviceManager;
@@ -22,7 +22,7 @@ static NSInteger const CellOffset = 1000000;
 
 @end
 
-@protocol ESLCellTagCalculator
+@protocol ESLCellTagCalculator<NSObject>
 
 - (NSInteger) calculateTagForCellAtIndexPath:(NSIndexPath*)indexPath;
 
@@ -50,10 +50,12 @@ static NSInteger const CellOffset = 1000000;
 
 @protocol ESLGenericFetchedChangeContextDelegate <NSObject>
 
-@optional
-
 -(void)genericFetchedTableDataSourceWillChangeContent:(ESLGenericFetchedTableDataSource *)fetchTableDataSource;
 -(void)genericFetchedTableDataSourceDidChangeContent:(ESLGenericFetchedTableDataSource *)fetchTableDataSource;
-
+@optional
+-(void)genericFetchedTableDataSourceDidFailFetchContent:(ESLGenericFetchedTableDataSource *)fetchTableDataSource
+                                              withError:(NSError *)error;
+-(void)genericFetchedTableDataSourceDidFailSaveContent:(ESLGenericFetchedTableDataSource *)fetchTableDataSource
+                                             withError:(NSError *)error;
 
 @end

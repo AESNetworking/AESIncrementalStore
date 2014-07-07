@@ -8,7 +8,7 @@
 
 #import "ESLGenericFetchedTableDataSource.h"
 #import "ESLPersistenceManager.h"
-#import "EEIncrementalStore.h"
+#import "AESIncrementalStore.h"
 #import <objc/runtime.h>
 
 @interface ESLGenericFetchedTableDataSource()
@@ -47,9 +47,16 @@
 -(void)didFetchObserver:(NSNotification *)note {
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         NSFetchRequest * fetchRequest=[note.userInfo objectForKey:AFIncrementalStorePersistentStoreRequestKey];
+        NSError * error=[note.userInfo objectForKey:AFIncrementalStoreFetchSaveRequestErrorKey];
         if ([[fetchRequest entityName] isEqualToString:self.fetchedEntityName]) {
-            if ([_contextDelegate respondsToSelector:@selector(genericFetchedTableDataSourceDidChangeContent:)]) {
-                [_contextDelegate genericFetchedTableDataSourceDidChangeContent:self];
+            if (!error) {
+                if ([_contextDelegate respondsToSelector:@selector(genericFetchedTableDataSourceDidChangeContent:)]) {
+                    [_contextDelegate genericFetchedTableDataSourceDidChangeContent:self];
+                }
+            } else {
+                if ([_contextDelegate respondsToSelector:@selector(genericFetchedTableDataSourceDidFailFetchContent:withError:)]) {
+                    [_contextDelegate genericFetchedTableDataSourceDidFailFetchContent:self withError:error];
+                }
             }
         }
     }];
@@ -57,8 +64,15 @@
 
 -(void)didSaveObserver:(NSNotification *)note {
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        if ([_contextDelegate respondsToSelector:@selector(genericFetchedTableDataSourceDidChangeContent:)]) {
-            [_contextDelegate genericFetchedTableDataSourceDidChangeContent:self];
+        NSError * error=[note.userInfo objectForKey:AFIncrementalStoreFetchSaveRequestErrorKey];
+        if (!error) {
+            if ([_contextDelegate respondsToSelector:@selector(genericFetchedTableDataSourceDidChangeContent:)]) {
+                [_contextDelegate genericFetchedTableDataSourceDidChangeContent:self];
+            }
+        } else {
+            if ([_contextDelegate respondsToSelector:@selector(genericFetchedTableDataSourceDidFailSaveContent:withError::)]) {
+                [_contextDelegate genericFetchedTableDataSourceDidFailSaveContent:self withError:error];
+            }
         }
     }];
 }
