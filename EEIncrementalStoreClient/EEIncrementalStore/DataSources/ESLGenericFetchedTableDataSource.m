@@ -8,7 +8,7 @@
 
 #import "ESLGenericFetchedTableDataSource.h"
 #import "ESLPersistenceManager.h"
-#import "AESIncrementalStore.h"
+#import "EEIncrementalStore.h"
 #import <objc/runtime.h>
 
 @interface ESLGenericFetchedTableDataSource()

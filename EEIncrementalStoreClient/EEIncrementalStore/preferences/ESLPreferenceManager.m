@@ -68,15 +68,6 @@ static ESLPreferenceManager *singleInstance;
     return [userDefaults objectForKey:@"it.esselunga.mobile.useClientCert"];
 }
 
-- (NSString *) codaz {
-    return [userDefaults objectForKey:@"it.esselunga.mobile.codaz"];
-}
-
-
--(NSString *) rangeValiditaNegoziExtraChecklist {
-    return [userDefaults objectForKey:@"it.esselunga.mobile.rangenegoziextrachecklist"];
-}
-
 - (void)readDefaultValuesFromSettingsBundle
 {
     // no default values have been set, create them here based on what's in our Settings bundle info
@@ -84,8 +75,14 @@ static ESLPreferenceManager *singleInstance;
     NSString *pathStr = [[NSBundle mainBundle] bundlePath];
     NSString *settingsBundlePath = [pathStr stringByAppendingPathComponent:@"Settings.bundle"];
     NSString *finalPath = [settingsBundlePath stringByAppendingPathComponent:@"Root.plist"];
+    NSString *applicationPath = [settingsBundlePath stringByAppendingPathComponent:@"Application.plist"];
+    NSString *frameworkPath = [settingsBundlePath stringByAppendingPathComponent:@"Framework.plist"];
     
-    NSDictionary *settingsDict = [NSDictionary dictionaryWithContentsOfFile:finalPath];
+    NSMutableDictionary *settingsDict = [NSMutableDictionary dictionaryWithContentsOfFile:finalPath];
+    [settingsDict addEntriesFromDictionary:[NSDictionary dictionaryWithContentsOfFile:applicationPath]];
+    [settingsDict addEntriesFromDictionary:[NSDictionary dictionaryWithContentsOfFile:frameworkPath]];
+
+
     NSArray *prefSpecifierArray = [settingsDict objectForKey:@"PreferenceSpecifiers"];
     
     NSMutableDictionary *appDefaults = [NSMutableDictionary new];

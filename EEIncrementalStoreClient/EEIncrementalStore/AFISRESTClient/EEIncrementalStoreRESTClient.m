@@ -558,15 +558,7 @@
                                 parameters:(NSDictionary *)parameters
 {
     NSMutableURLRequest *request = [super requestWithMethod:method path:path parameters:parameters];
-    
-#ifdef DEBUG
-    NSString *codaz = [ESLPreferenceManager sharedInstance].codaz;
-    
-    if( codaz.length ) {
-        [request setValue:codaz forHTTPHeaderField:@"X-Codaz"];
-    }
-#endif
-    
+        
     return request;
 }
 
