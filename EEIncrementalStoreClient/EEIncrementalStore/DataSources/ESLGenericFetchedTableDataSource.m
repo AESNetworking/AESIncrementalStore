@@ -70,7 +70,7 @@
                 [_contextDelegate genericFetchedTableDataSourceDidChangeContent:self];
             }
         } else {
-            if ([_contextDelegate respondsToSelector:@selector(genericFetchedTableDataSourceDidFailSaveContent:withError::)]) {
+            if ([_contextDelegate respondsToSelector:@selector(genericFetchedTableDataSourceDidFailSaveContent:withError:)]) {
                 [_contextDelegate genericFetchedTableDataSourceDidFailSaveContent:self withError:error];
             }
         }

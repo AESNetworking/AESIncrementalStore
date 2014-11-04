@@ -275,8 +275,8 @@ static int AFHTTPClientTimeoutConnection=(NSTimeInterval)180;
 #endif
 
     self.operationQueue = [[NSOperationQueue alloc] init];
-	[self.operationQueue setMaxConcurrentOperationCount:NSOperationQueueDefaultMaxConcurrentOperationCount];
-    //[self.operationQueue setMaxConcurrentOperationCount:1];
+	//[self.operationQueue setMaxConcurrentOperationCount:NSOperationQueueDefaultMaxConcurrentOperationCount];
+    [self.operationQueue setMaxConcurrentOperationCount:1];
     // #ifdef included for backwards-compatibility
 #ifdef _AFNETWORKING_ALLOW_INVALID_SSL_CERTIFICATES_
     self.allowsInvalidSSLCertificate = YES;
